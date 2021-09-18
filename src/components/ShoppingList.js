@@ -5,12 +5,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import ListItem from './ListItem';
 import StoreContext from '../store/storeContext';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
+    flexGrow: 1,
     width: '100%',
-    marginTop: 15,
-    backgroundColor: 'rgba(0,0,0,0.045)',
-    marginBottom: 44,
+    marginBottom: 51,
   },
   center: {
     textAlign: 'center',
@@ -33,7 +32,7 @@ const ShoppingList = ({ day }) => {
       setItems(currentItems);
     }
     setLoading(false);
-  }, [singleDay.items, currentItems]);
+  }, [day, singleDay.items, currentItems]);
 
   return (
     <List className={classes.root}>

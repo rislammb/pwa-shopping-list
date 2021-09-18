@@ -11,11 +11,14 @@ import ItemPrice from './ItemPrice';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: 15,
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    padding: theme.spacing(1),
+    [theme.breakpoints.up('sm')]: {
+      padding: '8px 16px',
+    },
   },
   btn: {
     marginLeft: 5,

@@ -46,11 +46,11 @@ const Navbar = (props) => {
     <AppBar position='fixed' className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <div className={classes.logo}>
-          <IconButton color='inherit'>
-            <NavLink to='/' className={classes.logoLink}>
+          <NavLink to='/' className={classes.logoLink}>
+            <IconButton color='inherit'>
               <Home />
-            </NavLink>
-          </IconButton>
+            </IconButton>
+          </NavLink>
         </div>
 
         <Switch checked={darkMode} color='default' onChange={toggleDarkMode} />

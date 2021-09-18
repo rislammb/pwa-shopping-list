@@ -10,13 +10,14 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexGrow: 1,
   },
+  toolbar: theme.mixins.toolbar,
   card: {
+    marginTop: 27,
     width: 330,
     maxWidth: '90%',
+    margin: 'auto',
     backgroundColor:
       theme.palette.type === 'light' ? 'rgba(255,255,255,0.3)' : '',
   },
@@ -47,6 +48,7 @@ const Contact = () => {
 
   return (
     <div className={classes.root}>
+      <div className={classes.toolbar}></div>
       <Card className={classes.card}>
         <CardHeader className={classes.header} title='Contact' />
         <CardContent>

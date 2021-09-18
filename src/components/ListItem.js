@@ -28,6 +28,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  icon: {
+    color:
+      theme.palette.type === 'light'
+        ? theme.palette.primary.dark
+        : theme.palette.primary.light,
+  },
 }));
 
 const ListItemComp = ({ item, index, day }) => {
@@ -88,14 +94,14 @@ const ListItemComp = ({ item, index, day }) => {
         ) : item.isByed ? (
           <div className={classes.icons}>
             <IconButton onClick={() => toggleByed(item.id)}>
-              <Undo color='primary' />
+              <Undo className={classes.icon} />
             </IconButton>
             <ItemPrice price={price} setPrice={priceChangeHandler} />
           </div>
         ) : (
           <div className={classes.icons}>
             <IconButton onClick={() => toggleByed(item.id)}>
-              <Check color='primary' />
+              <Check className={classes.icon} />
             </IconButton>
             <IconButton onClick={() => deleteItem(item.id)}>
               <Delete fontSize='small' color='secondary' />

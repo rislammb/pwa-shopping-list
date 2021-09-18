@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    padding: theme.spacing(1),
+    display: 'flex',
     // extra
     [theme.breakpoints.up('md')]: {
       marginRight: drawerWidth,
