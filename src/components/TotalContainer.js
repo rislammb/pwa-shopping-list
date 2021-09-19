@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#def6fd',
     zIndex: 1,
     textAlign: 'center',
+    boxShadow: '0px -1px 1px rgba(0,0,0,0.07)',
     [theme.breakpoints.up('md')]: {
       width: `calc(100% - 220px)`,
       marginRight: 220,

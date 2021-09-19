@@ -27,10 +27,8 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     margin: '0px auto',
     flexGrow: 1,
-    backgroundColor:
-      theme.palette.type === 'light'
-        ? 'rgba(0,0,0,0.021)'
-        : 'rgba(255, 255, 255, 0.03)',
+    boxShadow:
+      '0px 0px 1px 2px rgba(0,0,0,0.07), 0px 0px 2px 3px rgba(0,0,0,0.13)',
     display: 'flex',
     flexDirection: 'column',
   },

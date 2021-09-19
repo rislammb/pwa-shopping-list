@@ -70,7 +70,7 @@ const ListItemComp = ({ item, index, day }) => {
 
   useEffect(() => {
     setPrice(item.price);
-  }, [item.price]);
+  }, []);
 
   useEffect(() => {
     setItemPrice(item.id, price);

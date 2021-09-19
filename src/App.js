@@ -17,8 +17,6 @@ const useStyles = makeStyles((theme) => ({
         ? 'linear-gradient(to right, #fff4e3, #f9ffdc, #fff2ff)'
         : 'linear-gradient(to right, #333, #373737)',
   },
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
     display: 'flex',
@@ -38,7 +36,6 @@ function App() {
         <CssBaseline />
         <Navbar />
         <main direction='column' className={classes.content}>
-          <div className={classes.toolbar}></div>
           <Content />
         </main>
       </Paper>
