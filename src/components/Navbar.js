@@ -1,72 +1,58 @@
-import React, { useState, useContext } from 'react';
-import { NavLink } from 'react-router-dom';
-import { AppBar, Toolbar, Switch, IconButton } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import { Home } from '@material-ui/icons';
-import DrawerComp from './DrawerComp';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import MenuIcon from '@mui/icons-material/Menu';
+import Box from '@mui/material/Box';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 
-import StoreContext from '../store/storeContext';
+import StoreContext from '../store/StoreContext';
 
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    [theme.breakpoints.up('md')]: {
-      width: `calc(100% - 220px)`,
-      marginRight: 220,
-    },
-  },
-  toolbar: {
-    [theme.breakpoints.down('sm')]: {
-      paddingRight: 0,
-    },
-  },
-  logo: {
-    flex: 1,
-  },
-  logoLink: {
-    color: 'inherit',
-    textDecoration: 'none',
-  },
-  menuButton: {
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
-  },
-}));
-
-const Navbar = (props) => {
-  const { darkMode, toggleDarkMode } = useContext(StoreContext);
-  const classes = useStyles();
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  const toggleDrawer = () => setMobileOpen(!mobileOpen);
-  const closeDrawer = () => setMobileOpen(false);
+const Navbar = ({ drawerWidth, handleDrawerToggle }) => {
+  const theme = useTheme();
+  const { colorMode } = useContext(StoreContext);
 
   return (
-    <AppBar position='fixed' className={classes.appBar}>
-      <Toolbar className={classes.toolbar}>
-        <div className={classes.logo}>
-          <NavLink to='/' className={classes.logoLink}>
-            <IconButton color='inherit'>
-              <Home />
-            </IconButton>
-          </NavLink>
-        </div>
-
-        <Switch checked={darkMode} color='default' onChange={toggleDarkMode} />
+    <AppBar
+      position='fixed'
+      sx={{
+        width: { sm: `calc(100% - ${drawerWidth}px)` },
+        mr: { sm: `${drawerWidth}px` },
+      }}
+    >
+      <Toolbar>
+        <Box sx={{ flex: 1 }}>
+          <Link to='/' style={{ color: 'inherit' }}>
+            <Typography component='span'>s</Typography>
+          </Link>
+        </Box>
+        <Box>
+          <IconButton
+            sx={{ ml: 1 }}
+            onClick={colorMode.toggleColorMode}
+            color='inherit'
+          >
+            {theme.palette.mode === 'dark' ? (
+              <Brightness7Icon />
+            ) : (
+              <Brightness4Icon />
+            )}
+          </IconButton>
+        </Box>
         <IconButton
           color='inherit'
-          onClick={toggleDrawer}
-          className={classes.menuButton}
+          aria-label='open drawer'
+          edge='end'
+          onClick={handleDrawerToggle}
+          sx={{ ml: 1, display: { sm: 'none' } }}
         >
-          <MenuIcon fontSize='large' />
+          <MenuIcon />
         </IconButton>
       </Toolbar>
-      <DrawerComp
-        mobileOpen={mobileOpen}
-        toggleDrawer={toggleDrawer}
-        closeDrawer={closeDrawer}
-      />
     </AppBar>
   );
 };

@@ -1,28 +1,32 @@
-import React from 'react';
-import { FormControl, InputLabel, OutlinedInput } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useContext, useEffect } from 'react';
+import TextField from '@mui/material/TextField';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    flex: 2,
-    marginLeft: 5,
-    textAlign: 'right',
-  },
-}));
+import StoreContext from '../store/StoreContext';
 
-const ItemPrice = ({ price, setPrice }) => {
-  const classes = useStyles();
+const ItemPrice = ({ item }) => {
+  const { setItemPrice } = useContext(StoreContext);
+
+  const changeHandler = (e) => {
+    const tempInput = e.target.value.replace(/[^0-9.]/g, '');
+    let i = 0;
+    setItemPrice(
+      item.id,
+      tempInput.trim().replace(/\./g, function () {
+        return ++i >= 2 ? '' : '.';
+      })
+    );
+  };
 
   return (
-    <FormControl className={classes.root} variant='outlined'>
-      <InputLabel>Price</InputLabel>
-      <OutlinedInput
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-        placeholder='75'
-        labelWidth={35}
-      />
-    </FormControl>
+    <TextField
+      value={item.price}
+      autoFocus
+      sx={{ '& input': { textAlign: 'right', px: 1 } }}
+      placeholder='Price'
+      size='small'
+      onChange={changeHandler}
+      variant='standard'
+    />
   );
 };
 

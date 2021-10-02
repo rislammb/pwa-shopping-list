@@ -1,34 +1,16 @@
-import React, { useState, useContext } from 'react';
-import { IconButton } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useContext, useEffect } from 'react';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import TextField from '@mui/material/TextField';
+import Add from '@mui/icons-material/Add';
 
-import ItemNameInput from './ItemNameInput';
+import ItemName from './ItemName';
 import ItemAmount from './ItemAmount';
-
-import StoreContext from '../store/storeContext';
 import ItemPrice from './ItemPrice';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: theme.spacing(1),
-    [theme.breakpoints.up('sm')]: {
-      padding: '8px 16px',
-    },
-  },
-  btn: {
-    marginLeft: 5,
-    padding: theme.spacing(0.7),
-    backgroundColor: '#eee',
-  },
-}));
+import StoreContext from '../store/StoreContext';
 
 const AddItem = ({ day }) => {
-  const classes = useStyles();
   const {
     state: { currentItems, singleDay },
     addItem,
@@ -37,9 +19,30 @@ const AddItem = ({ day }) => {
   const [itemName, setItemName] = useState('');
   const [amount, setAmount] = useState('');
   const [price, setPrice] = useState('');
+  const [error, setError] = useState({
+    name: '',
+    amount: '',
+    price: '',
+  });
 
-  const priceChangeHandler = (inputText) => {
-    const tempInput = inputText.replace(/[^0-9.]/g, '');
+  const nameChangeHandler = (e) => {
+    setError((prev) => ({
+      ...prev,
+      name: '',
+    }));
+    setItemName(e.target.value);
+  };
+
+  const amountChangeHandler = (e) => {
+    setError((prev) => ({
+      ...prev,
+      amount: '',
+    }));
+    setAmount(e.target.value);
+  };
+
+  const priceChangeHandler = (e) => {
+    const tempInput = e.target.value.replace(/[^0-9.]/g, '');
     let i = 0;
     setPrice(
       tempInput.trim().replace(/\./g, function () {
@@ -49,6 +52,7 @@ const AddItem = ({ day }) => {
   };
 
   const addItemFn = () => {
+    setError({ name: '', amount: '', price: '' });
     const exist = day
       ? singleDay?.items?.find(
           (item) => item?.itemName?.toLowerCase() === itemName.toLowerCase()
@@ -57,36 +61,83 @@ const AddItem = ({ day }) => {
           (item) => item?.itemName?.toLowerCase() === itemName.toLowerCase()
         );
 
-    if (
-      day &&
-      (itemName.trim() === '' || amount.trim() === '' || price.trim() === '')
-    ) {
-      alert('Please enter item name, amount and price');
-    } else if (itemName.trim() === '' || amount.trim() === '') {
-      alert('Please enter item name and amount');
+    if (itemName.trim() === '') {
+      setError((prev) => ({ ...prev, name: 'Enter item name' }));
     } else if (exist) {
-      alert('This item name already exist!');
+      setError((prev) => ({ ...prev, name: 'This name already exist!' }));
+    } else if (amount.trim() === '') {
+      setError((prev) => ({ ...prev, amount: 'Enter amount' }));
+    } else if (day && price.trim() === '') {
+      setError((prev) => ({ ...prev, price: 'Enter price' }));
     } else {
       if (day) {
         addItemToDay(itemName.trim(), amount.trim(), price.trim());
+        setItemName('');
+        setAmount('');
+        setPrice('');
+        setError({ name: '', amount: '', price: '' });
       } else {
+        console.log('add item');
         addItem(itemName.trim(), amount.trim());
+        setItemName('');
+        setAmount('');
+        setPrice('');
+        setError({ name: '', amount: '', price: '' });
       }
-      setItemName('');
-      setAmount('');
-      setPrice('');
     }
   };
+  useEffect(() => {
+    setError({ name: '', amount: '', price: '' });
+  }, []);
 
   return (
-    <div className={classes.root}>
-      <ItemNameInput itemName={itemName} setItemName={setItemName} />
-      <ItemAmount amount={amount} setAmount={setAmount} />
-      {day && <ItemPrice price={price} setPrice={priceChangeHandler} />}
-      <IconButton className={classes.btn} color='primary' onClick={addItemFn}>
+    <Box
+      component='form'
+      sx={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        '& .MuiTextField-root': { mr: 1 },
+      }}
+      noValidate
+      autoComplete='off'
+    >
+      <TextField
+        sx={{ flex: 3 }}
+        error={error.name ? true : false}
+        helperText={error.name}
+        label='Item Name'
+        value={itemName}
+        autoFocus
+        placeholder='Mango'
+        onChange={nameChangeHandler}
+        variant='standard'
+      />
+      <TextField
+        sx={{ flex: 2 }}
+        error={error.amount ? true : false}
+        helperText={error.amount}
+        label='Amount'
+        value={amount}
+        placeholder='1 kg'
+        onChange={amountChangeHandler}
+        variant='standard'
+      />
+      {day && (
+        <TextField
+          sx={{ flex: 1 }}
+          error={error.price ? true : false}
+          helperText={error.price}
+          label='Price'
+          value={price}
+          placeholder='45'
+          onChange={priceChangeHandler}
+          variant='standard'
+        />
+      )}
+      <IconButton color='primary' onClick={addItemFn}>
         <Add fontSize='large' />
       </IconButton>
-    </div>
+    </Box>
   );
 };
 

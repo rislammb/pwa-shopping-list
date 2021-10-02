@@ -6,15 +6,15 @@ import SavedDay from '../pages/SavedDay';
 import DayDetails from '../pages/DayDetails';
 import Contact from '../pages/Contact';
 
-const Content = () => {
+const Main = () => {
   return (
     <Switch>
       <Route exact path='/' component={Home} />
       <Route exact path='/day' component={SavedDay} />
-      <Route path='/details/:date' component={DayDetails} />
+      <Route path='/day/:dateId' component={DayDetails} />
       <Route exact path='/contact' component={Contact} />
     </Switch>
   );
 };
 
-export default Content;
+export default Main;

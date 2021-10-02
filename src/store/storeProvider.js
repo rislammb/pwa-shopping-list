@@ -1,15 +1,16 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useState, useMemo, useReducer, useEffect } from 'react';
 import {
-  createMuiTheme,
+  createTheme,
   ThemeProvider,
   responsiveFontSizes,
-} from '@material-ui/core/styles';
+} from '@mui/material/styles';
 
-import StoreContext from './storeContext';
 import App from '../App';
+import StoreContext from './StoreContext';
 
 import { initialState, reducer } from './reducer';
 import {
+  DATA_LOADING,
   SET_CURRENT_ITEMS,
   ADD_ITEM,
   DELETE_ITEM,
@@ -27,7 +28,7 @@ import {
 } from './types';
 
 const StoreProvider = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [mode, setMode] = useState('light');
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const addItem = (itemName, amount) => {
@@ -78,7 +79,7 @@ const StoreProvider = () => {
 
   const addDay = (date, items) => {
     const newDay = {
-      id: Math.random() + '-' + Math.random() + '-' + Math.random(),
+      id: Math.random() + '-' + Math.random(),
       date,
       items,
     };
@@ -100,7 +101,7 @@ const StoreProvider = () => {
 
   const addItemToDay = (itemName, amount, price) => {
     const newItem = {
-      id: Math.random() + '-' + Math.random() + '-' + Math.random(),
+      id: Math.random() + '-' + Math.random(),
       itemName,
       amount,
       price,
@@ -121,23 +122,6 @@ const StoreProvider = () => {
   };
 
   useEffect(() => {
-    async function fetchDay() {
-      try {
-        const localListAsDay = await localStorage.getItem('LIST_AS_DAY_KEY');
-        if (localListAsDay !== null) {
-          dispatch({
-            type: SET_LIST_AS_DAY,
-            payload: JSON.parse(localListAsDay),
-          });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchDay();
-  }, []);
-
-  useEffect(() => {
     async function fetchData() {
       try {
         const localCurrentItems = await localStorage.getItem(
@@ -149,6 +133,17 @@ const StoreProvider = () => {
             payload: JSON.parse(localCurrentItems),
           });
         }
+        const localListAsDay = await localStorage.getItem('LIST_AS_DAY_KEY');
+        if (localListAsDay !== null) {
+          dispatch({
+            type: SET_LIST_AS_DAY,
+            payload: JSON.parse(localListAsDay),
+          });
+        }
+        dispatch({
+          type: DATA_LOADING,
+          payload: false,
+        });
       } catch (error) {
         console.log(error);
       }
@@ -167,7 +162,7 @@ const StoreProvider = () => {
         console.log(error);
       }
     }
-    saveCurrentItems();
+    if (!state.dataLoading) saveCurrentItems();
   }, [state.currentItems]);
 
   useEffect(() => {
@@ -181,33 +176,32 @@ const StoreProvider = () => {
         console.log(error);
       }
     }
-    saveListAsDay();
+    if (!state.dataLoading) saveListAsDay();
   }, [state.listAsDay]);
 
-  const lightTheme = createMuiTheme({
-    ...commonThemeValue,
-    palette: {
-      ...commonThemeValue.palette,
-    },
-  });
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+      },
+    }),
+    []
+  );
 
-  const darkTheme = createMuiTheme({
-    ...commonThemeValue,
-    palette: {
-      ...commonThemeValue.palette,
-      type: 'dark',
-    },
-  });
-
-  const theme = responsiveFontSizes(darkMode ? darkTheme : lightTheme);
-
-  const toggleDarkMode = () => setDarkMode(!darkMode);
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+        },
+      }),
+    [mode]
+  );
 
   return (
     <StoreContext.Provider
       value={{
-        darkMode,
-        toggleDarkMode,
+        colorMode,
         state,
         addItem,
         deleteItem,
@@ -231,28 +225,3 @@ const StoreProvider = () => {
 };
 
 export default StoreProvider;
-
-const commonThemeValue = {
-  palette: {
-    primary: {
-      main: '#0087b1',
-      light: '#00c3ff',
-      dark: '#006685',
-    },
-  },
-  typography: {
-    fontFamily: "'Titillium Web', sans-serif",
-  },
-  overrides: {
-    MuiOutlinedInput: {
-      input: {
-        padding: '10px 16px',
-      },
-    },
-    MuiInputLabel: {
-      outlined: {
-        transform: 'translate(16px, 12px) scale(1)',
-      },
-    },
-  },
-};

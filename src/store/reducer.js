@@ -1,4 +1,5 @@
 import {
+  DATA_LOADING,
   SET_CURRENT_ITEMS,
   ADD_ITEM,
   DELETE_ITEM,
@@ -16,6 +17,7 @@ import {
 } from './types';
 
 export const initialState = {
+  dataLoading: true,
   currentItems: [],
   visibleModal: false,
   listAsDay: [],
@@ -24,6 +26,11 @@ export const initialState = {
 
 export const reducer = (state, action) => {
   switch (action.type) {
+    case DATA_LOADING:
+      return {
+        ...state,
+        dataLoading: action.payload,
+      };
     case SET_CURRENT_ITEMS:
       return {
         ...state,
@@ -86,6 +93,7 @@ export const reducer = (state, action) => {
       };
 
     case SET_SINGLE_DAY:
+      console.log('set single reducer', action.payload, state);
       return {
         ...state,
         singleDay: state.listAsDay.find((day) => day.id === action.payload),

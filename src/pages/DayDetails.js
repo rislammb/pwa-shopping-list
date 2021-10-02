@@ -1,66 +1,49 @@
-import React from 'react';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Link,
-  Typography,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useContext, useEffect } from 'react';
+import { Box } from '@mui/material';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    flexGrow: 1,
-  },
-  toolbar: theme.mixins.toolbar,
-  card: {
-    marginTop: 27,
-    width: 330,
-    maxWidth: '90%',
-    backgroundColor:
-      theme.palette.type === 'light' ? 'rgba(255,255,255,0.3)' : '',
-  },
-  header: {
-    textAlign: 'center',
-    color:
-      theme.palette.type === 'light'
-        ? theme.palette.primary.dark
-        : theme.palette.primary.light,
-  },
-  link: {
-    textDecoration: 'none',
-    color:
-      theme.palette.type === 'light'
-        ? theme.palette.primary.dark
-        : theme.palette.primary.light,
-  },
-  divider: {
-    margin: '21px 0',
-  },
-  fontSize: {
-    fontSize: 17,
-  },
-}));
+import PageTitle from '../components/PageTitle';
+import ShoppingList from '../components/ShoppingList';
+import TotalContainer from '../components/TotalContainer';
+import AddItem from '../components/AddItem';
+import StoreContext from '../store/StoreContext';
 
-const DayDetails = () => {
-  const classes = useStyles();
+const DayDetails = (props) => {
+  const {
+    state: { dataLoading, singleDay },
+    setSingleDay,
+  } = useContext(StoreContext);
+
+  const getDate = () => {
+    const localString = new Date(singleDay?.date).toDateString();
+    const date = localString.substr(8, 2);
+    const month = localString.substr(3, 4);
+    const year = localString.substr(10, 5);
+    return date + month + year;
+  };
+
+  console.log(singleDay);
+
+  useEffect(() => {
+    console.log('day details', props.match.params.dateId);
+    setSingleDay(props.match.params.dateId);
+  }, [props.match.params.dateId]);
 
   return (
-    <div className={classes.root}>
-      <div className={classes.toolbar}></div>
-      <Card className={classes.card}>
-        <CardHeader className={classes.header} title='Day Details' />
-        <CardContent>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure,
-          reiciendis facere excepturi, incidunt dolorum non nam aut officiis ab
-          eius perspiciatis.
-        </CardContent>
-      </Card>
-    </div>
+    <Box sx={styles.container}>
+      <PageTitle title={`Date: ${getDate()}`} />
+      <AddItem day />
+      <ShoppingList day />
+      <TotalContainer day />
+    </Box>
   );
 };
 
 export default DayDetails;
+
+const styles = {
+  container: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+};

@@ -1,59 +1,40 @@
 import React, { useContext } from 'react';
-import { Button } from '@material-ui/core';
-
-import { makeStyles } from '@material-ui/core/styles';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import { useTheme } from '@mui/material/styles';
 
 import TotalPrice from './TotalPrice';
 
-import StoreContext from '../store/storeContext';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    position: 'fixed',
-    left: 0,
-    bottom: 0,
-    backgroundColor: '#def6fd',
-    zIndex: 1,
-    textAlign: 'center',
-    boxShadow: '0px -1px 1px rgba(0,0,0,0.07)',
-    [theme.breakpoints.up('md')]: {
-      width: `calc(100% - 220px)`,
-      marginRight: 220,
-    },
-  },
-  btn: {
-    marginRight: theme.spacing(1),
-  },
-}));
+import StoreContext from '../store/StoreContext';
+import { Redirect } from 'react-router';
 
 const TotalContainer = ({ day }) => {
-  const classes = useStyles();
-
   const {
     state: { currentItems, singleDay },
     toggleModal,
     clearCurrentItems,
   } = useContext(StoreContext);
+  const theme = useTheme();
 
   const calculateTotal = () => {
     const newItems = day
-      ? singleDay.items.filter((item) => +item.price > 0)
-      : currentItems.filter((item) => +item.price > 0);
+      ? singleDay?.items?.filter((item) => +item.price > 0)
+      : currentItems?.filter((item) => +item.price > 0);
 
     let totalPrice = 0;
-    newItems.map((item) => (totalPrice += +item.price));
+    newItems?.map((item) => (totalPrice += +item.price));
     return totalPrice.toFixed(2);
   };
 
   const saveList = () => {
-    const newItems = currentItems.filter(
+    const newItems = currentItems?.filter(
       (item) => item.isByed !== true || item.price === ''
     );
     if (newItems.length > 0) {
       window.alert('Your shopping not completed!');
     } else {
       toggleModal();
+      // return <Redirect to='/day' />;
     }
   };
 
@@ -63,32 +44,43 @@ const TotalContainer = ({ day }) => {
     }
   };
 
+  const styles = {
+    delete: {
+      mr: 2,
+      color:
+        theme.palette.mode === 'dark'
+          ? theme.palette.secondary.light
+          : theme.palette.secondary.dark,
+    },
+  };
+
   return (
-    <div className={classes.root}>
+    <Box
+      sx={{
+        borderTop: '0.13px solid',
+      }}
+    >
       {day ? (
         <TotalPrice day={day} total={calculateTotal()} />
       ) : (
         <TotalPrice day={day} total={calculateTotal()}>
           <Button
-            className={classes.btn}
-            color='primary'
-            disabled={currentItems.length < 1 ? true : false}
-            onClick={saveList}
-          >
-            Save Day
-          </Button>
-
-          <Button
-            className={classes.btn}
-            color='secondary'
-            disabled={currentItems.length < 1 ? true : false}
+            sx={styles.delete}
+            disabled={currentItems?.length < 1 ? true : false}
             onClick={clearCurrentItemsFn}
           >
             Clear all
           </Button>
+          <Button
+            color='primary'
+            disabled={currentItems?.length < 1 ? true : false}
+            onClick={saveList}
+          >
+            Save Day
+          </Button>
         </TotalPrice>
       )}
-    </div>
+    </Box>
   );
 };
 

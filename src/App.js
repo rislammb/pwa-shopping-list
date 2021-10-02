@@ -1,44 +1,108 @@
+import React, { useState, useContext } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import { Paper, CssBaseline } from '@material-ui/core';
+
 import './App.css';
 
 import Navbar from './components/Navbar';
-import Content from './components/Content';
+import Main from './components/Main';
+import DrawerList from './components/DrawerList';
+import ModalComp from './components/ModalComp';
 
-const drawerWidth = 220;
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Drawer from '@mui/material/Drawer';
+import Toolbar from '@mui/material/Toolbar';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    minHeight: '100vh',
-    backgroundImage:
-      theme.palette.type === 'light'
-        ? 'linear-gradient(to right, #fff4e3, #f9ffdc, #fff2ff)'
-        : 'linear-gradient(to right, #333, #373737)',
-  },
-  content: {
-    flexGrow: 1,
-    display: 'flex',
-    // extra
-    [theme.breakpoints.up('md')]: {
-      marginRight: drawerWidth,
-    },
-  },
-}));
+import StoreContext from './store/StoreContext';
 
-function App() {
-  const classes = useStyles();
+const drawerWidth = 240;
+
+function App(props) {
+  const {
+    state: { dataLoading },
+  } = useContext(StoreContext);
+  const { window } = props;
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
+
+  console.log(dataLoading);
 
   return (
     <Router>
-      <Paper className={classes.root}>
+      <Box sx={{ minHeight: '100vh', display: 'flex' }}>
         <CssBaseline />
-        <Navbar />
-        <main direction='column' className={classes.content}>
-          <Content />
-        </main>
-      </Paper>
+        <Navbar
+          drawerWidth={drawerWidth}
+          handleDrawerToggle={handleDrawerToggle}
+        />
+        <Box
+          component='main'
+          sx={{
+            flexGrow: 1,
+            px: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            maxWidth: 470,
+            mx: 'auto',
+          }}
+        >
+          <Toolbar />
+          {dataLoading ? (
+            <Box sx={{ mt: 5, textAlign: 'center' }}>
+              <div>loading...</div>
+            </Box>
+          ) : (
+            <Main />
+          )}
+        </Box>
+        <Box
+          component='nav'
+          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+          aria-label='mailbox folders'
+        >
+          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+          <Drawer
+            container={container}
+            variant='temporary'
+            open={mobileOpen}
+            anchor='right'
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: 'block', sm: 'none' },
+              '& .MuiDrawer-paper': {
+                boxSizing: 'border-box',
+                width: drawerWidth,
+              },
+            }}
+          >
+            <DrawerList />
+          </Drawer>
+          <Drawer
+            variant='permanent'
+            anchor='right'
+            sx={{
+              display: { xs: 'none', sm: 'block' },
+              '& .MuiDrawer-paper': {
+                boxSizing: 'border-box',
+                width: drawerWidth,
+              },
+            }}
+            open
+          >
+            <DrawerList />
+          </Drawer>
+        </Box>
+      </Box>
+      <ModalComp />
     </Router>
   );
 }

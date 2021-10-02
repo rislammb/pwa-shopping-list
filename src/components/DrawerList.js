@@ -1,41 +1,40 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from '@material-ui/core';
-import { Message, Home, Mail, DetailsOutlined } from '@material-ui/icons';
+import Toolbar from '@mui/material/Toolbar';
+import { useTheme } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
-  link: {
-    textDecoration: 'none',
-    color: theme.palette.type === 'dark' ? '#eee' : theme.palette.primary.main,
-  },
-}));
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import { Message, Home, Mail } from '@mui/icons-material';
 
-const DrawerList = ({ closeDrawer }) => {
-  const classes = useStyles();
+const DrawerList = () => {
   const theme = useTheme();
+
+  const styles = {
+    link: {
+      color:
+        theme.palette.mode === 'dark'
+          ? theme.palette.primary.main
+          : theme.palette.primary.dark,
+    },
+    activeLink: {
+      color: theme.palette.mode === 'dark' ? 'lightgreen' : 'green',
+    },
+  };
 
   return (
     <div>
-      <div className={classes.toolbar} />
+      <Toolbar />
       <Divider />
       <List>
         <NavLink
           exact
           to='/'
-          onClick={closeDrawer}
-          activeStyle={{
-            color: theme.palette.type === 'dark' ? 'lightgreen' : 'green',
-          }}
-          className={classes.link}
+          activeStyle={styles.activeLink}
+          style={styles.link}
         >
           <ListItem button>
             <ListItemIcon>
@@ -46,11 +45,9 @@ const DrawerList = ({ closeDrawer }) => {
         </NavLink>
         <NavLink
           to='/day'
-          onClick={closeDrawer}
-          activeStyle={{
-            color: theme.palette.type === 'dark' ? 'lightgreen' : 'green',
-          }}
-          className={classes.link}
+          // onClick={closeDrawer}
+          activeStyle={styles.activeLink}
+          style={styles.link}
         >
           <ListItem button>
             <ListItemIcon>
@@ -59,31 +56,14 @@ const DrawerList = ({ closeDrawer }) => {
             <ListItemText primary='Saved Day' />
           </ListItem>
         </NavLink>
-        <NavLink
-          to='/details/sdgsd'
-          onClick={closeDrawer}
-          activeStyle={{
-            color: theme.palette.type === 'dark' ? 'lightgreen' : 'green',
-          }}
-          className={classes.link}
-        >
-          <ListItem button>
-            <ListItemIcon>
-              <DetailsOutlined />
-            </ListItemIcon>
-            <ListItemText primary='Day Details' />
-          </ListItem>
-        </NavLink>
       </List>
       <Divider />
       <List>
         <NavLink
           to='/contact'
-          onClick={closeDrawer}
-          activeStyle={{
-            color: theme.palette.type === 'dark' ? 'lightgreen' : 'green',
-          }}
-          className={classes.link}
+          // onClick={closeDrawer}
+          activeStyle={styles.activeLink}
+          style={styles.link}
         >
           <ListItem button>
             <ListItemIcon>

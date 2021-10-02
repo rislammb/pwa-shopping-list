@@ -1,54 +1,64 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Typography, List } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
 
-import ListItem from './ListItem';
-import StoreContext from '../store/storeContext';
+import ShoppingListItem from './ShoppingListItem';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    width: '100%',
-    marginBottom: 51,
-  },
-  center: {
-    textAlign: 'center',
-    padding: '45px 8px',
-  },
-}));
+import StoreContext from '../store/StoreContext';
 
 const ShoppingList = ({ day }) => {
-  const classes = useStyles();
   const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
   const {
     state: { singleDay, currentItems },
   } = useContext(StoreContext);
 
   useEffect(() => {
-    if (day) {
-      setItems(singleDay.items);
-    } else {
-      setItems(currentItems);
+    async function loadItems() {
+      if (day) {
+        await setItems(singleDay?.items);
+      } else {
+        await setItems(currentItems);
+      }
     }
-    setLoading(false);
-  }, [day, singleDay.items, currentItems]);
+    loadItems();
+  }, [day, singleDay?.items, currentItems]);
 
   return (
-    <List className={classes.root}>
-      {loading ? (
-        <Typography className={classes.center}>Loading..</Typography>
-      ) : items.length > 0 ? (
-        items.map((item, index) => (
-          <ListItem key={item.id} item={item} index={index} day={day} />
-        ))
+    <Box
+      sx={{
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      {items?.length > 0 ? (
+        <List dense>
+          {items?.map((item, index) => (
+            <ShoppingListItem
+              key={item.id}
+              item={item}
+              index={index}
+              day={day}
+            />
+          ))}
+        </List>
       ) : (
-        <Typography className={classes.center}>
+        <Typography sx={styles.center}>
           There are no shopping list item.
         </Typography>
       )}
-    </List>
+    </Box>
   );
 };
 
 export default ShoppingList;
+
+const styles = {
+  center: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+};
