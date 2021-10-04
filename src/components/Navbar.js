@@ -20,14 +20,18 @@ const Navbar = ({ drawerWidth, handleDrawerToggle }) => {
     <AppBar
       position='fixed'
       sx={{
-        width: { sm: `calc(100% - ${drawerWidth}px)` },
-        mr: { sm: `${drawerWidth}px` },
+        width: { md: `calc(100% - ${drawerWidth}px)` },
+        mr: { md: `${drawerWidth}px` },
       }}
+      // sx={{
+      //   width: { sm: `calc(100% - ${drawerWidth}px)` },
+      //   mr: { sm: `${drawerWidth}px` },
+      // }}
     >
       <Toolbar>
         <Box sx={{ flex: 1 }}>
           <Link to='/' style={{ color: 'inherit' }}>
-            <Typography component='span'>s</Typography>
+            <Typography component='span'>SL</Typography>
           </Link>
         </Box>
         <Box>
@@ -48,7 +52,8 @@ const Navbar = ({ drawerWidth, handleDrawerToggle }) => {
           aria-label='open drawer'
           edge='end'
           onClick={handleDrawerToggle}
-          sx={{ ml: 1, display: { sm: 'none' } }}
+          sx={{ ml: 1, display: { md: 'none' } }}
+          // sx={{ ml: 1, display: { sm: 'none' } }}
         >
           <MenuIcon />
         </IconButton>

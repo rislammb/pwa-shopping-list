@@ -10,7 +10,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Message, Home, Mail } from '@mui/icons-material';
 
-const DrawerList = () => {
+const DrawerList = ({ toggleDrawer }) => {
   const theme = useTheme();
 
   const styles = {
@@ -36,20 +36,15 @@ const DrawerList = () => {
           activeStyle={styles.activeLink}
           style={styles.link}
         >
-          <ListItem button>
+          <ListItem button onClick={() => toggleDrawer && toggleDrawer()}>
             <ListItemIcon>
               <Home />
             </ListItemIcon>
             <ListItemText primary='Shopping List' />
           </ListItem>
         </NavLink>
-        <NavLink
-          to='/day'
-          // onClick={closeDrawer}
-          activeStyle={styles.activeLink}
-          style={styles.link}
-        >
-          <ListItem button>
+        <NavLink to='/day' activeStyle={styles.activeLink} style={styles.link}>
+          <ListItem button onClick={() => toggleDrawer && toggleDrawer()}>
             <ListItemIcon>
               <Message />
             </ListItemIcon>
@@ -61,11 +56,10 @@ const DrawerList = () => {
       <List>
         <NavLink
           to='/contact'
-          // onClick={closeDrawer}
           activeStyle={styles.activeLink}
           style={styles.link}
         >
-          <ListItem button>
+          <ListItem button onClick={() => toggleDrawer && toggleDrawer()}>
             <ListItemIcon>
               <Mail />
             </ListItemIcon>

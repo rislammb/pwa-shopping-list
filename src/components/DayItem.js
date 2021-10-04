@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useTheme } from '@mui/material/styles';
@@ -36,15 +37,27 @@ const DayItem = ({ day }) => {
     container: {
       px: 0,
       display: 'flex',
+      alignItems: 'center',
       justifyContent: 'space-between',
     },
     link: {
       flex: 1,
       display: 'flex',
-      justifyContent: 'flex-start',
+      alignItems: 'center',
       color: 'inherit',
     },
+    start: { flex: 3 },
+    middle: {
+      flex: 2,
+      mx: 1,
+    },
+    last: {
+      flex: 3,
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
     delete: {
+      ml: 1,
       color:
         theme.palette.mode === 'dark'
           ? theme.palette.secondary.light
@@ -59,9 +72,12 @@ const DayItem = ({ day }) => {
         to={`/day/${day.id}`}
         style={styles.link}
       >
-        <ListItemText primary={getDate()} />
-        <ListItemText primary={`Items: ${day.items.length}`} />
-        <ListItemText primary={`Total: ${calculateTotal()}`} />
+        <Typography sx={styles.start}>{getDate()}</Typography>
+        <Typography sx={styles.middle}>Items: {day.items.length}</Typography>
+        <Box sx={styles.last}>
+          <Typography>Total: </Typography>
+          <Typography>{calculateTotal()}</Typography>
+        </Box>
       </Link>
       <IconButton onClick={deleteHandler} edge='end' aria-label='delete'>
         <DeleteIcon sx={styles.delete} fontSize='small' />

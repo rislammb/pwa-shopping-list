@@ -4,10 +4,6 @@ import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Add from '@mui/icons-material/Add';
 
-import ItemName from './ItemName';
-import ItemAmount from './ItemAmount';
-import ItemPrice from './ItemPrice';
-
 import StoreContext from '../store/StoreContext';
 
 const AddItem = ({ day }) => {
@@ -77,7 +73,6 @@ const AddItem = ({ day }) => {
         setPrice('');
         setError({ name: '', amount: '', price: '' });
       } else {
-        console.log('add item');
         addItem(itemName.trim(), amount.trim());
         setItemName('');
         setAmount('');
@@ -134,7 +129,7 @@ const AddItem = ({ day }) => {
           variant='standard'
         />
       )}
-      <IconButton color='primary' onClick={addItemFn}>
+      <IconButton color='primary' sx={{ mr: -1 }} onClick={addItemFn}>
         <Add fontSize='large' />
       </IconButton>
     </Box>

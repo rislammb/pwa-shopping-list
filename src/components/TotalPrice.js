@@ -11,8 +11,8 @@ const TotalPrice = (props) => (
     }}
   >
     {props.children}
-    <Typography component='span' sx={{ fontWeight: 600, p: 1 }}>
-      {props.days ? `Gross Total: ${props.total}` : `Total: ${props.total}`}
+    <Typography component='span' sx={{ fontWeight: 600, ml: 1, p: 1 }}>
+      {props.day ? `Gross Total: ${props.total}` : `Total: ${props.total}`}
     </Typography>
   </Box>
 );

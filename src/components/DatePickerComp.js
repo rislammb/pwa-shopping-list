@@ -1,4 +1,5 @@
 import * as React from 'react';
+import frLocale from 'date-fns/locale/fr';
 import { TextField, Stack } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -6,7 +7,7 @@ import DatePicker from '@mui/lab/DatePicker';
 
 const DatePickerComp = ({ date, setDate }) => {
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
+    <LocalizationProvider dateAdapter={AdapterDateFns} locale={frLocale}>
       <DatePicker
         views={['day']}
         maxDate={new Date()}

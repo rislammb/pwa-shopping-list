@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 
 import Navbar from './components/Navbar';
+import ProgressBar from './components/ProgressBar';
 import Main from './components/Main';
 import DrawerList from './components/DrawerList';
 import ModalComp from './components/ModalComp';
@@ -31,8 +32,6 @@ function App(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-  console.log(dataLoading);
-
   return (
     <Router>
       <Box sx={{ minHeight: '100vh', display: 'flex' }}>
@@ -53,17 +52,12 @@ function App(props) {
           }}
         >
           <Toolbar />
-          {dataLoading ? (
-            <Box sx={{ mt: 5, textAlign: 'center' }}>
-              <div>loading...</div>
-            </Box>
-          ) : (
-            <Main />
-          )}
+          {dataLoading ? <ProgressBar /> : <Main />}
         </Box>
         <Box
           component='nav'
-          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+          sx={{ width: { md: drawerWidth }, flexShrink: { sm: 0 } }}
+          // sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
           aria-label='mailbox folders'
         >
           {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -77,25 +71,39 @@ function App(props) {
               keepMounted: true, // Better open performance on mobile.
             }}
             sx={{
-              display: { xs: 'block', sm: 'none' },
+              display: { sm: 'block', md: 'none' },
               '& .MuiDrawer-paper': {
                 boxSizing: 'border-box',
                 width: drawerWidth,
               },
             }}
+            // sx={{
+            //   display: { xs: 'block', sm: 'none' },
+            //   '& .MuiDrawer-paper': {
+            //     boxSizing: 'border-box',
+            //     width: drawerWidth,
+            //   },
+            // }}
           >
-            <DrawerList />
+            <DrawerList toggleDrawer={handleDrawerToggle} />
           </Drawer>
           <Drawer
             variant='permanent'
             anchor='right'
             sx={{
-              display: { xs: 'none', sm: 'block' },
+              display: { xs: 'none', sm: 'none', md: 'block' },
               '& .MuiDrawer-paper': {
                 boxSizing: 'border-box',
                 width: drawerWidth,
               },
             }}
+            // sx={{
+            //   display: { xs: 'none', sm: 'block' },
+            //   '& .MuiDrawer-paper': {
+            //     boxSizing: 'border-box',
+            //     width: drawerWidth,
+            //   },
+            // }}
             open
           >
             <DrawerList />

@@ -33,7 +33,7 @@ const DayDetails = (props) => {
       <PageTitle title={`Date: ${getDate()}`} />
       <AddItem day />
       <ShoppingList day />
-      <TotalContainer day />
+      <TotalContainer details />
     </Box>
   );
 };

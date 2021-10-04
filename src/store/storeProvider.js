@@ -194,6 +194,9 @@ const StoreProvider = () => {
         palette: {
           mode,
         },
+        typography: {
+          fontFamily: "'Titillium Web', sans-serif",
+        },
       }),
     [mode]
   );
