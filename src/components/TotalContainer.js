@@ -94,7 +94,7 @@ const TotalContainer = ({ day, dayList, details }) => {
       ) : details ? (
         <TotalPrice details={details} total={calculateTotal()}>
           <IconButton onClick={() => history.push('/day')}>
-            <ArrowBackRounded />
+            <ArrowBackRounded color='primary' />
           </IconButton>
         </TotalPrice>
       ) : (
