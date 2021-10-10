@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import TextField from '@mui/material/TextField';
 
 import StoreContext from '../store/StoreContext';

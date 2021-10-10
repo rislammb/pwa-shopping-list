@@ -9,7 +9,7 @@ import StoreContext from '../store/StoreContext';
 
 const DayDetails = (props) => {
   const {
-    state: { dataLoading, singleDay },
+    state: { singleDay },
     setSingleDay,
   } = useContext(StoreContext);
 
@@ -21,10 +21,7 @@ const DayDetails = (props) => {
     return date + month + year;
   };
 
-  console.log(singleDay);
-
   useEffect(() => {
-    console.log('day details', props.match.params.dateId);
     setSingleDay(props.match.params.dateId);
   }, [props.match.params.dateId]);
 

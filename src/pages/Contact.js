@@ -1,9 +1,6 @@
 import React from 'react';
 import {
   Box,
-  Card,
-  CardHeader,
-  CardContent,
   Link,
   Typography,
 } from '@mui/material';

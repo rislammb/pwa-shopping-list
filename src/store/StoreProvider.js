@@ -159,7 +159,7 @@ const StoreProvider = () => {
       }
     }
     if (!state.dataLoading) saveCurrentItems();
-  }, [state.currentItems]);
+  }, [state.currentItems, state.dataLoading]);
 
   useEffect(() => {
     async function saveListAsDay() {
@@ -173,7 +173,7 @@ const StoreProvider = () => {
       }
     }
     if (!state.dataLoading) saveListAsDay();
-  }, [state.listAsDay]);
+  }, [state.listAsDay, state.dataLoading]);
 
   const colorMode = useMemo(
     () => ({
