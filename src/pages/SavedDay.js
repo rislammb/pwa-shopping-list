@@ -1,9 +1,13 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
+import TableContainer from '@mui/material/TableContainer';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+
 import PageTitle from '../components/PageTitle';
-import DayItem from '../components/DayItem';
+import DayRow from '../components/DayRow';
 import TotalContainer from '../components/TotalContainer';
 
 import StoreContext from '../store/StoreContext';
@@ -45,13 +49,30 @@ const SavedDay = () => {
   return (
     <Box sx={styles.container}>
       <PageTitle title='Day List' />
-      <List sx={styles.listContainer}>
-        {dayList.length > 0 ? (
-          dayList.map((day) => <DayItem key={day.id} day={day} />)
-        ) : (
-          <Typography sx={styles.center}>There are no saved day!.</Typography>
-        )}
-      </List>
+      <TableContainer
+        sx={{
+          mt: 1,
+          flexGrow: 1,
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <Table size='small' aria-label='a dense table'>
+          <TableBody>
+            {dayList.length > 0 ? (
+              dayList.map((day) => <DayRow key={day.id} day={day} />)
+            ) : (
+              <TableRow
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell sx={{ py: 5 }} align='center'>
+                  There are no saved day!.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
       <TotalContainer day dayList={dayList} />
     </Box>
   );

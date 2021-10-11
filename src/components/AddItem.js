@@ -64,7 +64,7 @@ const AddItem = ({ day }) => {
     } else if (amount.trim() === '') {
       setError((prev) => ({ ...prev, amount: 'Enter amount' }));
     } else if (day && price.trim() === '') {
-      setError((prev) => ({ ...prev, price: 'Enter price' }));
+      setError((prev) => ({ ...prev, price: 'Price' }));
     } else {
       if (day) {
         addItemToDay(itemName.trim(), amount.trim(), price.trim());

@@ -9,7 +9,7 @@ import ShoppingRow from './ShoppingRow';
 
 import StoreContext from '../store/StoreContext';
 
-const ShoppingTable = ({ day }) => {
+const ShoppingTable = ({ details }) => {
   const [items, setItems] = useState([]);
   const {
     state: { singleDay, currentItems },
@@ -17,18 +17,19 @@ const ShoppingTable = ({ day }) => {
 
   useEffect(() => {
     async function loadItems() {
-      if (day) {
+      if (details) {
         await setItems(singleDay?.items);
       } else {
         await setItems(currentItems);
       }
     }
     loadItems();
-  }, [day, singleDay?.items, currentItems]);
+  }, [details, singleDay?.items, currentItems]);
 
   return (
     <TableContainer
       sx={{
+        mt: 1,
         flexGrow: 1,
         display: 'flex',
         flexDirection: 'column',
@@ -38,13 +39,18 @@ const ShoppingTable = ({ day }) => {
         <TableBody>
           {items?.length > 0 ? (
             items.map((item, index) => (
-              <ShoppingRow key={item.id} item={item} index={index} day={day} />
+              <ShoppingRow
+                key={item.id}
+                item={item}
+                index={index}
+                details={details}
+              />
             ))
           ) : (
             <TableRow
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell align='center'>
+              <TableCell sx={{ py: 5 }} align='center'>
                 There are no shopping list item.
               </TableCell>
             </TableRow>

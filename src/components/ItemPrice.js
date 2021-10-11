@@ -21,7 +21,7 @@ const ItemPrice = ({ item }) => {
     <TextField
       value={item.price}
       autoFocus
-      sx={{ '& input': { textAlign: 'center', px: 1 } }}
+      sx={{ '& input': { textAlign: 'center', px: 0.3 } }}
       placeholder='Price'
       size='small'
       onChange={changeHandler}

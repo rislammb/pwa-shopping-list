@@ -66,7 +66,7 @@ const ModalComp = () => {
             <DatePickerComp date={date} setDate={setDate} />
           </Box>
           <Typography sx={{ color: '#c35', textAlign: 'center' }}>
-            If you save this your list page would clear!
+            If you save this list, your current page would clear!
           </Typography>
           <Box sx={styles.btnContainer}>
             <Button onClick={toggleModal}>Cancel</Button>

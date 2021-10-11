@@ -44,11 +44,12 @@ function App(props) {
           component='main'
           sx={{
             flexGrow: 1,
-            px: 2,
+            px: 1,
             display: 'flex',
             flexDirection: 'column',
             maxWidth: 470,
             mx: 'auto',
+            overflow: 'hidden',
           }}
         >
           <Toolbar />

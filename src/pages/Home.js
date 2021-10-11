@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import PageTitle from '../components/PageTitle';
 import AddItem from '../components/AddItem';
 import ShoppingTable from '../components/ShoppingTable';
-import ShoppingList from '../components/ShoppingList';
 import TotalContainer from '../components/TotalContainer';
 
 const Home = () => {

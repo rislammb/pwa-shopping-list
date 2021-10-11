@@ -77,9 +77,11 @@ const TotalContainer = ({ day, dayList, details }) => {
 
   return (
     <Box
-      sx={{
-        borderTop: '0.13px solid',
-      }}
+      sx={
+        {
+          // borderTop: '0.13px solid',
+        }
+      }
     >
       {day ? (
         <TotalPrice day={day} total={calculateTotal()}>

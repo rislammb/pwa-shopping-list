@@ -12,7 +12,7 @@ import ItemPrice from './ItemPrice';
 import StoreContext from '../store/StoreContext';
 import { Typography } from '@mui/material';
 
-const ShoppingRow = ({ item, index, day }) => {
+const ShoppingRow = ({ item, index, details }) => {
   const history = useHistory();
   const {
     state: { singleDay },
@@ -37,6 +37,15 @@ const ShoppingRow = ({ item, index, day }) => {
   };
 
   const styles = {
+    name: {
+      flex: 5,
+      px: 1,
+      fontWeight: 'bold',
+      color:
+        theme.palette.mode === 'dark'
+          ? theme.palette.primary.light
+          : theme.palette.primary.dark,
+    },
     delete: {
       color:
         theme.palette.mode === 'dark'
@@ -46,10 +55,16 @@ const ShoppingRow = ({ item, index, day }) => {
   };
 
   return (
-    <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+    <TableRow
+      sx={{
+        display: 'flex',
+        alignItems: 'cenetr',
+        '&:last-child td, &:last-child th': { border: 0 },
+      }}
+    >
       <TableCell sx={{ p: 0 }}>
-        {day ? (
-          <IconButton onClick={dayItemDelete} edge='start' aria-label='delete'>
+        {details ? (
+          <IconButton onClick={dayItemDelete} aria-label='delete'>
             <DeleteIcon sx={styles.delete} fontSize='small' />
           </IconButton>
         ) : (
@@ -58,13 +73,15 @@ const ShoppingRow = ({ item, index, day }) => {
           </IconButton>
         )}
       </TableCell>
-      <TableCell>{index + 1 < 10 ? `0${index + 1}` : index + 1}</TableCell>
-      <TableCell component='th' scope='row' color='primary'>
+      <TableCell sx={{ px: 1 }}>
+        {index + 1 < 10 ? `0${index + 1}` : index + 1}
+      </TableCell>
+      <TableCell component='th' sx={styles.name} scope='row'>
         {item.itemName}
       </TableCell>
-      <TableCell align='right'>{item.amount}</TableCell>
-      <TableCell align='right' sx={{ p: 0, width: 63 }}>
-        {day ? (
+      <TableCell sx={{ flex: 3, px: 1 }}>{item.amount}</TableCell>
+      <TableCell align='right' sx={{ py: 0, px: 1, width: 67 }}>
+        {details ? (
           <Typography align='right'>{item.price}</Typography>
         ) : item.isByed ? (
           <ItemPrice item={item} />

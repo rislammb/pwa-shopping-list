@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Box } from '@mui/material';
 
 import PageTitle from '../components/PageTitle';
-import ShoppingList from '../components/ShoppingList';
+import ShoppingTable from '../components/ShoppingTable';
 import TotalContainer from '../components/TotalContainer';
 import AddItem from '../components/AddItem';
 import StoreContext from '../store/StoreContext';
@@ -29,7 +29,7 @@ const DayDetails = (props) => {
     <Box sx={styles.container}>
       <PageTitle title={`Date: ${getDate()}`} />
       <AddItem day />
-      <ShoppingList day />
+      <ShoppingTable details />
       <TotalContainer details />
     </Box>
   );
