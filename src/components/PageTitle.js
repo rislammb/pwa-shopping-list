@@ -11,8 +11,8 @@ const PageTitle = ({ title }) => {
       my: 1,
       color:
         theme.palette.mode === 'dark'
-          ? theme.palette.primary.main
-          : theme.palette.primary.dark,
+          ? theme.palette.primary.light
+          : theme.palette.primary.main,
     },
   };
   return (

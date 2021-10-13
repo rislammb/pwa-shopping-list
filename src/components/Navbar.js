@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+import { ShoppingBag } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
@@ -23,15 +23,12 @@ const Navbar = ({ drawerWidth, handleDrawerToggle }) => {
         width: { md: `calc(100% - ${drawerWidth}px)` },
         mr: { md: `${drawerWidth}px` },
       }}
-      // sx={{
-      //   width: { sm: `calc(100% - ${drawerWidth}px)` },
-      //   mr: { sm: `${drawerWidth}px` },
-      // }}
     >
       <Toolbar>
         <Box sx={{ flex: 1 }}>
           <Link to='/' style={{ color: 'inherit' }}>
-            <Typography component='span'>SL</Typography>
+            {/* <img src='icon.png' alit='i' width='21' /> */}
+            <ShoppingBag />
           </Link>
         </Box>
         <Box>
@@ -53,7 +50,6 @@ const Navbar = ({ drawerWidth, handleDrawerToggle }) => {
           edge='end'
           onClick={handleDrawerToggle}
           sx={{ ml: 1, display: { md: 'none' } }}
-          // sx={{ ml: 1, display: { sm: 'none' } }}
         >
           <MenuIcon />
         </IconButton>

@@ -1,33 +1,32 @@
 import React from 'react';
-import {
-  Box,
-  Link,
-  Typography,
-} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { Box, Link, Typography } from '@mui/material';
 import PageTitle from '../components/PageTitle';
 
-const styles = {
-  root: {
-    pt: 2,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  link: {
-    textDecoration: 'none',
-    color:
-      'theme.palette.type' === 'light'
-        ? 'theme.palette.primary.dark'
-        : 'theme.palette.primary.light',
-  },
-  fontSize: {
-    fontSize: 17,
-    my: 1,
-  },
-};
-
 const Contact = () => {
+  const theme = useTheme();
+
+  const styles = {
+    root: {
+      mt: 2,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    link: {
+      textDecoration: 'none',
+      color:
+        theme.palette.mode === 'dark'
+          ? theme.palette.primary.light
+          : theme.palette.primary.main,
+    },
+    fontSize: {
+      fontSize: 17,
+      my: 1,
+    },
+  };
+
   return (
     <Box sx={styles.root}>
       <PageTitle title='Contact' />

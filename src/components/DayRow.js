@@ -67,7 +67,7 @@ const DayRow = ({ day }) => {
       color:
         theme.palette.mode === 'dark'
           ? theme.palette.secondary.light
-          : theme.palette.secondary.dark,
+          : theme.palette.secondary.main,
     },
   };
 

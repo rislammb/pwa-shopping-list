@@ -40,17 +40,17 @@ const ShoppingRow = ({ item, index, details }) => {
     name: {
       flex: 5,
       px: 1,
-      fontWeight: 'bold',
+      fontWeight: '500',
       color:
         theme.palette.mode === 'dark'
           ? theme.palette.primary.light
-          : theme.palette.primary.dark,
+          : theme.palette.primary.main,
     },
     delete: {
       color:
         theme.palette.mode === 'dark'
           ? theme.palette.secondary.light
-          : theme.palette.secondary.dark,
+          : theme.palette.secondary.main,
     },
   };
 

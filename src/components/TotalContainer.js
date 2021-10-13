@@ -71,17 +71,21 @@ const TotalContainer = ({ day, dayList, details }) => {
       color:
         theme.palette.mode === 'dark'
           ? theme.palette.secondary.light
-          : theme.palette.secondary.dark,
+          : theme.palette.secondary.main,
     },
   };
 
+  const drawerWidth = 240;
+
   return (
     <Box
-      sx={
-        {
-          // borderTop: '0.13px solid',
-        }
-      }
+      position='fixed'
+      sx={{
+        bottom: 0,
+        left: 0,
+        width: { xs: '100%', md: `calc(100% - ${drawerWidth}px)` },
+        mr: { md: `${drawerWidth}px` },
+      }}
     >
       {day ? (
         <TotalPrice day={day} total={calculateTotal()}>

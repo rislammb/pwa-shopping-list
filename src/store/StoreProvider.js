@@ -189,6 +189,14 @@ const StoreProvider = () => {
       createTheme({
         palette: {
           mode,
+          primary: {
+            main: '#0087b1',
+            light: '#00b9f1',
+          },
+          secondary: {
+            main: '#f00927',
+            light: '#ff576d',
+          },
         },
         typography: {
           fontFamily: "'Titillium Web', sans-serif",

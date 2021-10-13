@@ -58,7 +58,6 @@ function App(props) {
         <Box
           component='nav'
           sx={{ width: { md: drawerWidth }, flexShrink: { sm: 0 } }}
-          // sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
           aria-label='mailbox folders'
         >
           {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -78,13 +77,6 @@ function App(props) {
                 width: drawerWidth,
               },
             }}
-            // sx={{
-            //   display: { xs: 'block', sm: 'none' },
-            //   '& .MuiDrawer-paper': {
-            //     boxSizing: 'border-box',
-            //     width: drawerWidth,
-            //   },
-            // }}
           >
             <DrawerList toggleDrawer={handleDrawerToggle} />
           </Drawer>
@@ -98,13 +90,6 @@ function App(props) {
                 width: drawerWidth,
               },
             }}
-            // sx={{
-            //   display: { xs: 'none', sm: 'block' },
-            //   '& .MuiDrawer-paper': {
-            //     boxSizing: 'border-box',
-            //     width: drawerWidth,
-            //   },
-            // }}
             open
           >
             <DrawerList />

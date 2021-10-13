@@ -17,8 +17,8 @@ const DrawerList = ({ toggleDrawer }) => {
     link: {
       color:
         theme.palette.mode === 'dark'
-          ? theme.palette.primary.main
-          : theme.palette.primary.dark,
+          ? theme.palette.primary.light
+          : theme.palette.primary.main,
     },
     activeLink: {
       color: theme.palette.mode === 'dark' ? 'lightgreen' : 'green',
