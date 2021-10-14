@@ -34,7 +34,7 @@ function App(props) {
 
   return (
     <Router>
-      <Box sx={{ minHeight: '100vh', display: 'flex' }}>
+      <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <Navbar
           drawerWidth={drawerWidth}

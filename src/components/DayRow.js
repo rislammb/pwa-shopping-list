@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
+import { Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -35,31 +36,29 @@ const DayRow = ({ day }) => {
 
   const styles = {
     container: {
-      px: 0,
+      flex: 1,
       display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
+      pl: 0,
+      pr: 1,
     },
     link: {
       flex: 1,
+      color: 'inherit',
       display: 'flex',
     },
-    start: {
+    date: {
       flex: 3,
-      px: 1,
       color:
         theme.palette.mode === 'dark'
           ? theme.palette.primary.light
           : theme.palette.primary.dark,
     },
-    middle: {
+    items: {
       flex: 2,
       px: 1,
     },
-    last: {
-      px: 1,
-      pr: 2,
-      flex: 3,
+    total: {
+      flex: 4,
       display: 'flex',
       justifyContent: 'space-between',
     },
@@ -79,18 +78,21 @@ const DayRow = ({ day }) => {
         '&:last-child td, &:last-child th': { border: 0 },
       }}
     >
-      <Link
-        onClick={() => setSingleDay(day.id)}
-        to={`/day/${day.id}`}
-        style={styles.link}
-      >
-        <TableCell sx={styles.start}>{getDate()}</TableCell>
-        <TableCell sx={styles.middle}>Items: {day.items.length}</TableCell>
-        <TableCell sx={styles.last}>
-          <Typography>Total: </Typography>
-          <Typography>{calculateTotal()}</Typography>
-        </TableCell>
-      </Link>
+      <TableCell sx={styles.container}>
+        <Link
+          onClick={() => setSingleDay(day.id)}
+          to={`/day/${day.id}`}
+          style={styles.link}
+        >
+          <Typography sx={styles.date}>{getDate()}</Typography>
+          <Typography sx={styles.items}>Items: {day.items.length}</Typography>
+          <Box sx={styles.total}>
+            <Typography>Total: </Typography>
+            <Typography>{calculateTotal()}</Typography>
+          </Box>
+        </Link>
+      </TableCell>
+
       <TableCell sx={{ p: 0 }}>
         <IconButton onClick={deleteHandler} aria-label='delete'>
           <DeleteIcon sx={styles.delete} fontSize='small' />

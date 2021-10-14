@@ -192,6 +192,7 @@ const StoreProvider = () => {
           primary: {
             main: '#0087b1',
             light: '#00b9f1',
+            dark: '#047699',
           },
           secondary: {
             main: '#f00927',

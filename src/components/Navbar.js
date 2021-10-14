@@ -27,8 +27,9 @@ const Navbar = ({ drawerWidth, handleDrawerToggle }) => {
       <Toolbar>
         <Box sx={{ flex: 1 }}>
           <Link to='/' style={{ color: 'inherit' }}>
-            {/* <img src='icon.png' alit='i' width='21' /> */}
-            <ShoppingBag />
+            <IconButton color='inherit'>
+              <ShoppingBag />
+            </IconButton>
           </Link>
         </Box>
         <Box>

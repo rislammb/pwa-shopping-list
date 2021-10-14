@@ -93,7 +93,6 @@ export const reducer = (state, action) => {
       };
 
     case SET_SINGLE_DAY:
-      console.log('set single reducer', action.payload, state);
       return {
         ...state,
         singleDay: state.listAsDay.find((day) => day.id === action.payload),

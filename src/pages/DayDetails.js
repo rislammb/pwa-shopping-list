@@ -23,11 +23,11 @@ const DayDetails = (props) => {
 
   useEffect(() => {
     setSingleDay(props.match.params.dateId);
-  }, [props.match.params.dateId]);
+  }, []);
 
   return (
     <Box sx={styles.container}>
-      <PageTitle title={`Date: ${getDate()}`} />
+      <PageTitle title={`Date: ${getDate()}`} details />
       <AddItem day />
       <ShoppingTable details />
       <TotalContainer details />

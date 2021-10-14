@@ -33,6 +33,7 @@ const ShoppingTable = ({ details }) => {
         flexGrow: 1,
         display: 'flex',
         flexDirection: 'column',
+        mb: 6,
       }}
     >
       <Table size='small' aria-label='a dense table'>

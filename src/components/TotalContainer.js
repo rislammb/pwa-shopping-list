@@ -65,9 +65,17 @@ const TotalContainer = ({ day, dayList, details }) => {
     }
   };
 
+  const drawerWidth = 240;
   const styles = {
+    root: {
+      bottom: 0,
+      left: 0,
+      width: { xs: '100%', md: `calc(100% - ${drawerWidth}px)` },
+      mr: { md: `${drawerWidth}px` },
+      background: theme.palette.background.paper,
+    },
     delete: {
-      mr: 2,
+      mr: 1,
       color:
         theme.palette.mode === 'dark'
           ? theme.palette.secondary.light
@@ -75,18 +83,8 @@ const TotalContainer = ({ day, dayList, details }) => {
     },
   };
 
-  const drawerWidth = 240;
-
   return (
-    <Box
-      position='fixed'
-      sx={{
-        bottom: 0,
-        left: 0,
-        width: { xs: '100%', md: `calc(100% - ${drawerWidth}px)` },
-        mr: { md: `${drawerWidth}px` },
-      }}
-    >
+    <Box position='fixed' sx={styles.root}>
       {day ? (
         <TotalPrice day={day} total={calculateTotal()}>
           <Button

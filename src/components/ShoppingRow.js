@@ -24,9 +24,7 @@ const ShoppingRow = ({ item, index, details }) => {
   const theme = useTheme();
 
   const dayItemDelete = () => {
-    if (
-      window.confirm(`Are you sure you want to delete  '${item.itemName}'?`)
-    ) {
+    if (window.confirm(`Are you sure you want to delete '${item.itemName}'?`)) {
       if (singleDay.items.length > 1) {
         deleteItemFromDay(singleDay.id, item.id);
       } else {
@@ -44,7 +42,7 @@ const ShoppingRow = ({ item, index, details }) => {
       color:
         theme.palette.mode === 'dark'
           ? theme.palette.primary.light
-          : theme.palette.primary.main,
+          : theme.palette.primary.dark,
     },
     delete: {
       color:
@@ -80,7 +78,7 @@ const ShoppingRow = ({ item, index, details }) => {
         {item.itemName}
       </TableCell>
       <TableCell sx={{ flex: 3, px: 1 }}>{item.amount}</TableCell>
-      <TableCell align='right' sx={{ py: 0, px: 1, width: 67 }}>
+      <TableCell align='right' sx={{ p: 0, width: 57 }}>
         {details ? (
           <Typography align='right'>{item.price}</Typography>
         ) : item.isByed ? (

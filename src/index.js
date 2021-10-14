@@ -4,6 +4,13 @@ import StoreProvider from './store/StoreProvider';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('/sw.js')
+    .then((res) => console.log('resitered', res))
+    .catch((err) => console.log('fail', err));
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <StoreProvider />
