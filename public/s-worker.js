@@ -1,5 +1,5 @@
-const staticCache = 'site-static-v2';
-const dynamicCache = 'site-dynamic-v1';
+const staticCache = 'site-static-v3';
+const dynamicCache = 'site-dynamic-v3';
 
 const fileToCache = [
   '/',
@@ -57,7 +57,7 @@ self.addEventListener('fetch', (evt) => {
         if (evt.request.url.indexOf('/day') > -1) {
           return caches.match('/day');
         } else {
-          return caches.match('/');
+          return caches.match('/index.html');
         }
       })
   );
