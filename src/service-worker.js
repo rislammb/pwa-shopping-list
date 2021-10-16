@@ -71,19 +71,21 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
-const staticCache = 'site-static';
-const dynamicCache = 'site-dynamic';
+const staticCache = 'site-static-v';
+const dynamicCache = 'site-dynamic-v';
+
+const fileToCache = [
+  '/',
+  '/index.html',
+  'https://fonts.googleapis.com/css?family=Titillium+Web&display=swap',
+  'https://fonts.gstatic.com/s/titilliumweb/v10/NaPecZTIAOhVxoMyOr9n_E7fdMPmDQ.woff2',
+];
 
 self.addEventListener('install', (evt) => {
   console.log('install started');
   evt.waitUntil(
     caches.open(staticCache).then((cache) => {
-      return cache.addAll([
-        '/',
-        '/index.html',
-        'https://fonts.googleapis.com/css?family=Titillium+Web&display=swap',
-        'https://fonts.gstatic.com/s/titilliumweb/v10/NaPecZTIAOhVxoMyOr9n_E7fdMPmDQ.woff2',
-      ]);
+      return cache.addAll(fileToCache);
     })
   );
 });
