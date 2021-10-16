@@ -78,7 +78,12 @@ self.addEventListener('install', (evt) => {
   console.log('install started');
   evt.waitUntil(
     caches.open(staticCache).then((cache) => {
-      return cache.addAll(['/index.html', '/favicon.ico', '/logo192.png']);
+      return cache.addAll([
+        '/',
+        '/index.html',
+        'https://fonts.googleapis.com/css?family=Titillium+Web&display=swap',
+        'https://fonts.gstatic.com/s/titilliumweb/v10/NaPecZTIAOhVxoMyOr9n_E7fdMPmDQ.woff2',
+      ]);
     })
   );
 });
@@ -99,7 +104,7 @@ self.addEventListener('activate', (evt) => {
 self.addEventListener('fetch', (evt) => {
   console.log('fetch started');
   if (!(evt.request.url.indexOf('http') === 0)) {
-    console.log('if', evt.request.url.indexOf('http'));
+    console.log('if', evt.request);
     return;
   }
   evt.respondWith(
@@ -108,6 +113,7 @@ self.addEventListener('fetch', (evt) => {
       return (
         cacheRes ||
         fetch(evt.request).then((fetchRes) => {
+          console.log('fetch res', fetchRes);
           return caches.open(dynamicCache).then((cache) => {
             cache.put(evt.request.url, fetchRes.clone());
             // check cached items size
