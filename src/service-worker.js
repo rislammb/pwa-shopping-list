@@ -71,10 +71,13 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
+const staticCache = 'site-static';
+const dynamicCache = 'site-dynamic';
+
 self.addEventListener('install', (evt) => {
   console.log('install started');
   evt.waitUntil(
-    caches.open('site-static').then((cache) => {
+    caches.open(staticCache).then((cache) => {
       return cache.addAll(['/index.html', '/favicon.ico', '/logo192.png']);
     })
   );
@@ -86,7 +89,7 @@ self.addEventListener('activate', (evt) => {
     caches.keys().then((keys) => {
       return Promise.all(
         keys
-          .filter((key) => key !== 'site-static')
+          .filter((key) => key !== staticCache && key !== dynamicCache)
           .map((key) => caches.delete(key))
       );
     })
@@ -95,4 +98,24 @@ self.addEventListener('activate', (evt) => {
 
 self.addEventListener('fetch', (evt) => {
   console.log('fetch started');
+  if (!(evt.request.url.indexOf('http') === 0)) {
+    console.log('if', evt.request.url.indexOf('http'));
+    return;
+  }
+  evt.respondWith(
+    caches.match(evt.request).then((cacheRes) => {
+      console.log('evt.request', evt.request);
+      return (
+        cacheRes ||
+        fetch(evt.request).then((fetchRes) => {
+          return caches.open(dynamicCache).then((cache) => {
+            cache.put(evt.request.url, fetchRes.clone());
+            // check cached items size
+            // limitCacheSize(dynamicCache, 15);
+            return fetchRes;
+          });
+        })
+      );
+    })
+  );
 });
