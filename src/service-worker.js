@@ -50,7 +50,8 @@ registerRoute(
 // precache, in this case same-origin .png requests like those from in public/
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
-  ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
+  ({ url }) =>
+    url.origin === self.location.origin && url.pathname.endsWith('.png'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
   new StaleWhileRevalidate({
     cacheName: 'images',
     plugins: [
@@ -70,3 +71,28 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
+self.addEventListener('install', (evt) => {
+  console.log('install started');
+  evt.waitUntil(
+    caches.open('site-static').then((cache) => {
+      return cache.addAll(['/index.html', '/favicon.ico', '/logo192.png']);
+    })
+  );
+});
+
+self.addEventListener('activate', (evt) => {
+  console.log('activate started');
+  evt.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys
+          .filter((key) => key !== 'site-static')
+          .map((key) => caches.delete(key))
+      );
+    })
+  );
+});
+
+self.addEventListener('fetch', (evt) => {
+  console.log('fetch started');
+});
