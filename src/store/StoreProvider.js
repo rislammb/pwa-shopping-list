@@ -29,7 +29,7 @@ const StoreProvider = () => {
 
   const addItem = (itemName, amount) => {
     const newItem = {
-      id: Math.random() + '-' + Math.random() + '-' + Math.random(),
+      id: Math.random() + '-' + Math.random(),
       itemName,
       amount,
       price: '',

@@ -1,5 +1,5 @@
-const staticCache = 'site-static-v3';
-const dynamicCache = 'site-dynamic-v3';
+const staticCache = 'site-static-v1';
+const dynamicCache = 'site-dynamic-v1';
 
 const fileToCache = [
   '/',
@@ -30,6 +30,16 @@ self.addEventListener('activate', (evt) => {
   );
 });
 
+const limitCacheSize = (cacheName, size) => {
+  caches.open(cacheName).then((cache) => {
+    cache.keys().then((keys) => {
+      if (keys.length > size) {
+        cache.delete(keys[0]).then(limitCacheSize(cacheName, size));
+      }
+    });
+  });
+};
+
 self.addEventListener('fetch', (evt) => {
   if (!(evt.request.url.indexOf('http') === 0)) {
     console.log('if', evt.request);
@@ -47,7 +57,7 @@ self.addEventListener('fetch', (evt) => {
             return caches.open(dynamicCache).then((cache) => {
               cache.put(evt.request.url, fetchRes.clone());
               // check cached items size
-              // limitCacheSize(dynamicCache, 15);
+              limitCacheSize(dynamicCache, 15);
               return fetchRes;
             });
           })
@@ -57,7 +67,7 @@ self.addEventListener('fetch', (evt) => {
         if (evt.request.url.indexOf('/day') > -1) {
           return caches.match('/day');
         } else {
-          return caches.match('/index.html');
+          return caches.match('/');
         }
       })
   );
