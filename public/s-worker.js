@@ -1,5 +1,5 @@
-const staticCache = 'site-static-v2';
-const dynamicCache = 'site-dynamic-v2';
+const staticCache = 'site-static-v3';
+const dynamicCache = 'site-dynamic-v3';
 
 const fileToCache = [
   '/',

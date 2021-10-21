@@ -12,6 +12,10 @@ const TotalPrice = (props) => {
         maxWidth: 470,
         mx: 'auto',
         px: 1,
+        background:
+          theme.palette.mode === 'dark'
+            ? 'rgba(255,255,255,0.035)'
+            : 'rgba(0,0,0,0.035)',
       }}
     >
       <Divider />
