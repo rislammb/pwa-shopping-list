@@ -13,12 +13,14 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
+import { useTheme } from '@mui/material/styles';
 
 import StoreContext from './store/StoreContext';
 
 const drawerWidth = 240;
 
 function App(props) {
+  const theme = useTheme();
   const {
     state: { dataLoading },
   } = useContext(StoreContext);
@@ -32,26 +34,32 @@ function App(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
+  const styles = {
+    main: {
+      flexGrow: 1,
+      px: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      maxWidth: 470,
+      mx: 'auto',
+      overflow: 'hidden',
+      minHeight: '100vh',
+      background:
+        theme.palette.mode === 'dark'
+          ? 'rgba(255,255,255,0.035)'
+          : 'rgba(0,0,0,0.035)',
+    },
+  };
+
   return (
     <Router>
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', background: theme.palette.background.paper }}>
         <CssBaseline />
         <Navbar
           drawerWidth={drawerWidth}
           handleDrawerToggle={handleDrawerToggle}
         />
-        <Box
-          component='main'
-          sx={{
-            flexGrow: 1,
-            px: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            maxWidth: 470,
-            mx: 'auto',
-            overflow: 'hidden',
-          }}
-        >
+        <Box component='main' sx={styles.main}>
           <Toolbar />
           {dataLoading ? <ProgressBar /> : <Main />}
         </Box>
@@ -75,6 +83,7 @@ function App(props) {
               '& .MuiDrawer-paper': {
                 boxSizing: 'border-box',
                 width: drawerWidth,
+                background: theme.palette.background.paper,
               },
             }}
           >

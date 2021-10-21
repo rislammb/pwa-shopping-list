@@ -192,11 +192,17 @@ const StoreProvider = () => {
           primary: {
             main: '#0087b1',
             light: '#00b9f1',
-            dark: '#047699',
+            dark: '#046380',
           },
           secondary: {
             main: '#f00927',
             light: '#ff576d',
+          },
+          background: {
+            paper:
+              mode === 'light'
+                ? 'linear-gradient(to right, #fffaf2, #fcffef)'
+                : 'linear-gradient(to right, #0e0b00, #0f0006)',
           },
         },
         typography: {

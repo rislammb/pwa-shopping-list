@@ -129,7 +129,7 @@ const AddItem = ({ day }) => {
           variant='standard'
         />
       )}
-      <IconButton color='primary' sx={{ mr: -1 }} onClick={addItemFn}>
+      <IconButton color='primary' onClick={addItemFn}>
         <Add fontSize='large' />
       </IconButton>
     </Box>

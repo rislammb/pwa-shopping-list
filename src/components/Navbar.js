@@ -24,7 +24,14 @@ const Navbar = ({ drawerWidth, handleDrawerToggle }) => {
         mr: { md: `${drawerWidth}px` },
       }}
     >
-      <Toolbar>
+      <Toolbar
+        sx={{
+          backgroundColor:
+            theme.palette.mode === 'dark'
+              ? theme.palette.primary.dark
+              : theme.palette.primary.main,
+        }}
+      >
         <Box sx={{ flex: 1 }}>
           <Link to='/' style={{ color: 'inherit' }}>
             <IconButton color='inherit'>

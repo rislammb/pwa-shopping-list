@@ -72,7 +72,6 @@ const TotalContainer = ({ day, dayList, details }) => {
       left: 0,
       width: { xs: '100%', md: `calc(100% - ${drawerWidth}px)` },
       mr: { md: `${drawerWidth}px` },
-      background: theme.palette.background.paper,
     },
     delete: {
       mr: 1,
