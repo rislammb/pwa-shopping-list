@@ -87,7 +87,7 @@ const styles = {
     transform: 'translate(-50%, -50%)',
     maxWidth: '90%',
     width: 260,
-    bgcolor: 'background.paper',
+    bgcolor: '#dadada',
     boxShadow: 12,
     borderRadius: 2,
     py: 3,
