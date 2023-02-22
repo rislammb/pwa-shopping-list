@@ -1,10 +1,9 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-
-import PageTitle from '../components/PageTitle';
 import AddItem from '../components/AddItem';
+import PageTitle from '../components/PageTitle';
 import ShoppingTable from '../components/ShoppingTable';
 import TotalContainer from '../components/TotalContainer';
+
+import Box from '@mui/material/Box';
 
 const Home = () => {
   return (

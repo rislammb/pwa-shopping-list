@@ -1,7 +1,7 @@
+import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
 
 const PageTitle = ({ title, details }) => {
   const theme = useTheme();

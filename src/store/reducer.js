@@ -1,19 +1,20 @@
+import { deepClone } from '../utils';
 import {
-  DATA_LOADING,
-  SET_CURRENT_ITEMS,
-  ADD_ITEM,
-  DELETE_ITEM,
-  TOGGLE_BYED,
-  SET_PRICE,
-  CLEAR_CURRENT_ITEMS,
-  TOGGLE_MODAL,
-  SET_LIST_AS_DAY,
-  SET_SINGLE_DAY,
   ADD_DAY,
-  DELETE_DAY,
-  CLEAR_ALL_DAYS,
+  ADD_ITEM,
   ADD_ITEM_TO_DAY,
+  CLEAR_ALL_DAYS,
+  CLEAR_CURRENT_ITEMS,
+  DATA_LOADING,
+  DELETE_DAY,
+  DELETE_ITEM,
   DELETE_ITEM_FROM_DAY,
+  SET_CURRENT_ITEMS,
+  SET_LIST_AS_DAY,
+  SET_PRICE,
+  SET_SINGLE_DAY,
+  TOGGLE_BYED,
+  TOGGLE_MODAL,
 } from './types';
 
 export const initialState = {
@@ -31,6 +32,7 @@ export const reducer = (state, action) => {
         ...state,
         dataLoading: action.payload,
       };
+
     case SET_CURRENT_ITEMS:
       return {
         ...state,
@@ -44,26 +46,30 @@ export const reducer = (state, action) => {
       };
 
     case TOGGLE_BYED:
-      const currentItemsByed = [...state.currentItems];
-      const index = currentItemsByed.findIndex(
+      const oldStateItems = deepClone(state.currentItems);
+
+      const index = oldStateItems.findIndex(
         (item) => item.id === action.payload
       );
-      currentItemsByed[index].isByed = !currentItemsByed[index].isByed;
-      currentItemsByed[index].price = '';
+
+      oldStateItems[index].isByed = !oldStateItems[index].isByed;
+      oldStateItems[index].price = '';
+
       return {
         ...state,
-        currentItems: currentItemsByed,
+        currentItems: oldStateItems,
       };
 
     case SET_PRICE:
-      const currentItemsPrice = [...state.currentItems];
-      const priceIndex = currentItemsPrice.findIndex(
+      const oldStateItemsP = deepClone(state.currentItems);
+
+      const priceIndex = oldStateItemsP.findIndex(
         (item) => item.id === action.payload.id
       );
-      currentItemsPrice[priceIndex].price = action.payload.price;
+      oldStateItemsP[priceIndex].price = action.payload.price;
       return {
         ...state,
-        currentItems: currentItemsPrice,
+        currentItems: oldStateItemsP,
       };
 
     case DELETE_ITEM:
@@ -117,10 +123,13 @@ export const reducer = (state, action) => {
       };
 
     case ADD_ITEM_TO_DAY:
-      const tempListAsDay = [...state.listAsDay];
+      const tempListAsDay = deepClone(state.listAsDay);
+      console.log(tempListAsDay);
+
       const dayIndex = tempListAsDay.findIndex(
         (day) => day.id === action.payload.dayId
       );
+
       tempListAsDay[dayIndex].items = [
         action.payload.newItem,
         ...tempListAsDay[dayIndex].items,
@@ -132,7 +141,8 @@ export const reducer = (state, action) => {
       };
 
     case DELETE_ITEM_FROM_DAY:
-      const temListAsDay = [...state.listAsDay];
+      const temListAsDay = deepClone(state.listAsDay);
+
       const dayInde = temListAsDay.findIndex(
         (day) => day.id === action.payload.dayId
       );

@@ -1,19 +1,23 @@
-import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import IconButton from '@mui/material/IconButton';
-import Undo from '@mui/icons-material/Undo';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Check from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Undo from '@mui/icons-material/Undo';
+import { Typography } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 import { useTheme } from '@mui/material/styles';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
 
 import ItemPrice from './ItemPrice';
+
 import StoreContext from '../store/StoreContext';
-import { Typography } from '@mui/material';
 
 const ShoppingRow = ({ item, index, details }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
+  const theme = useTheme();
+
   const {
     state: { singleDay },
     deleteItem,
@@ -21,7 +25,6 @@ const ShoppingRow = ({ item, index, details }) => {
     deleteItemFromDay,
     deleteDay,
   } = useContext(StoreContext);
-  const theme = useTheme();
 
   const dayItemDelete = () => {
     if (window.confirm(`Are you sure you want to delete '${item.itemName}'?`)) {
@@ -29,7 +32,7 @@ const ShoppingRow = ({ item, index, details }) => {
         deleteItemFromDay(singleDay.id, item.id);
       } else {
         deleteDay(singleDay.id);
-        return history.push('/day');
+        return navigate('/day');
       }
     }
   };

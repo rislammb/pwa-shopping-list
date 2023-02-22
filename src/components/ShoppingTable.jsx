@@ -1,21 +1,23 @@
-import React, { useState, useContext, useEffect } from 'react';
-import TableContainer from '@mui/material/TableContainer';
+import React, { useContext, useEffect, useState } from 'react';
+import ShoppingRow from './ShoppingRow';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
-
-import ShoppingRow from './ShoppingRow';
+import TableContainer from '@mui/material/TableContainer';
+import TableRow from '@mui/material/TableRow';
 
 import StoreContext from '../store/StoreContext';
 
 const ShoppingTable = ({ details }) => {
   const [items, setItems] = useState([]);
+
   const {
     state: { singleDay, currentItems },
   } = useContext(StoreContext);
 
   useEffect(() => {
+    console.log('table');
     async function loadItems() {
       if (details) {
         await setItems(singleDay?.items);

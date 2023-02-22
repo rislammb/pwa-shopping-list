@@ -1,8 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
+
+import Add from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
-import Add from '@mui/icons-material/Add';
 
 import StoreContext from '../store/StoreContext';
 
@@ -47,7 +48,9 @@ const AddItem = ({ day }) => {
     );
   };
 
-  const addItemFn = () => {
+  const addItemFn = (e) => {
+    e.preventDefault();
+
     setError({ name: '', amount: '', price: '' });
     const exist = day
       ? singleDay?.items?.find(
@@ -93,6 +96,7 @@ const AddItem = ({ day }) => {
         alignItems: 'flex-start',
         '& .MuiTextField-root': { mr: 1 },
       }}
+      onSubmit={addItemFn}
       noValidate
       autoComplete='off'
     >
@@ -129,7 +133,7 @@ const AddItem = ({ day }) => {
           variant='standard'
         />
       )}
-      <IconButton color='primary' onClick={addItemFn}>
+      <IconButton type='submit' color='primary' onClick={addItemFn}>
         <Add fontSize='large' />
       </IconButton>
     </Box>

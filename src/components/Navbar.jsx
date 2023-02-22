@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { useTheme } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import { ShoppingBag } from '@mui/icons-material';
-import MenuIcon from '@mui/icons-material/Menu';
-import Box from '@mui/material/Box';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import MenuIcon from '@mui/icons-material/Menu';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import { useTheme } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 import StoreContext from '../store/StoreContext';
 

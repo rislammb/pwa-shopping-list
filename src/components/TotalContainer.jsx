@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { ArrowBackRounded } from '@mui/icons-material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import { useTheme } from '@mui/material/styles';
 
 import TotalPrice from './TotalPrice';
@@ -11,14 +12,15 @@ import TotalPrice from './TotalPrice';
 import StoreContext from '../store/StoreContext';
 
 const TotalContainer = ({ day, dayList, details }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
+  const theme = useTheme();
+
   const {
     state: { currentItems, listAsDay, singleDay },
     toggleModal,
     clearCurrentItems,
     clearAllDays,
   } = useContext(StoreContext);
-  const theme = useTheme();
 
   const calculateTotal = () => {
     if (day) {
@@ -97,7 +99,7 @@ const TotalContainer = ({ day, dayList, details }) => {
         </TotalPrice>
       ) : details ? (
         <TotalPrice details={details} total={calculateTotal()}>
-          <IconButton onClick={() => history.push('/day')}>
+          <IconButton onClick={() => navigate('/day')}>
             <ArrowBackRounded color='primary' />
           </IconButton>
         </TotalPrice>

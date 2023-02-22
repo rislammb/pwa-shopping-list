@@ -1,35 +1,38 @@
-import React, { useState, useMemo, useReducer, useEffect } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import React, { useEffect, useMemo, useReducer, useState } from 'react';
 
 import App from '../App';
 import StoreContext from './StoreContext';
 
+import { generateId } from '../utils';
 import { initialState, reducer } from './reducer';
 import {
-  DATA_LOADING,
-  SET_CURRENT_ITEMS,
-  ADD_ITEM,
-  DELETE_ITEM,
-  TOGGLE_BYED,
-  SET_PRICE,
-  CLEAR_CURRENT_ITEMS,
-  TOGGLE_MODAL,
-  SET_LIST_AS_DAY,
-  SET_SINGLE_DAY,
   ADD_DAY,
-  DELETE_DAY,
+  ADD_ITEM,
   ADD_ITEM_TO_DAY,
-  DELETE_ITEM_FROM_DAY,
   CLEAR_ALL_DAYS,
+  CLEAR_CURRENT_ITEMS,
+  DATA_LOADING,
+  DELETE_DAY,
+  DELETE_ITEM,
+  DELETE_ITEM_FROM_DAY,
+  SET_CURRENT_ITEMS,
+  SET_LIST_AS_DAY,
+  SET_PRICE,
+  SET_SINGLE_DAY,
+  TOGGLE_BYED,
+  TOGGLE_MODAL,
 } from './types';
 
 const StoreProvider = () => {
   const [mode, setMode] = useState('light');
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  console.log(state.singleDay.items);
+
   const addItem = (itemName, amount) => {
     const newItem = {
-      id: Math.random() + '-' + Math.random(),
+      id: generateId(),
       itemName,
       amount,
       price: '',
@@ -75,7 +78,7 @@ const StoreProvider = () => {
 
   const addDay = (date, items) => {
     const newDay = {
-      id: Math.random() + '-' + Math.random(),
+      id: generateId(),
       date,
       items,
     };
@@ -97,7 +100,7 @@ const StoreProvider = () => {
 
   const addItemToDay = (itemName, amount, price) => {
     const newItem = {
-      id: Math.random() + '-' + Math.random(),
+      id: generateId(),
       itemName,
       amount,
       price,
@@ -199,10 +202,7 @@ const StoreProvider = () => {
             light: '#ff576d',
           },
           background: {
-            paper:
-              mode === 'light'
-                ? 'linear-gradient(to right, #fffaf2, #fcffef)'
-                : 'linear-gradient(to right, #0e0b00, #0f0006)',
+            paper: mode === 'light' ? '#ececec' : '#292929',
           },
         },
         typography: {

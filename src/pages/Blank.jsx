@@ -1,7 +1,8 @@
+import { Box, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useTheme } from '@mui/material/styles';
-import { Box, Typography } from '@mui/material';
+
 import PageTitle from '../components/PageTitle';
 
 const Blank = () => {

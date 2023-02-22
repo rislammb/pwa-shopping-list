@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import ListItem from '@mui/material/ListItem';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+
 import DeleteIcon from '@mui/icons-material/Delete';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import ListItem from '@mui/material/ListItem';
 import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 import StoreContext from '../store/StoreContext';
 

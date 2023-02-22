@@ -1,25 +1,24 @@
-import React, { useState, useContext } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
-import './App.css';
-
+import DrawerList from './components/DrawerList';
+import Main from './components/Main';
+import ModalComp from './components/ModalComp';
 import Navbar from './components/Navbar';
 import ProgressBar from './components/ProgressBar';
-import Main from './components/Main';
-import DrawerList from './components/DrawerList';
-import ModalComp from './components/ModalComp';
 
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Drawer from '@mui/material/Drawer';
-import Toolbar from '@mui/material/Toolbar';
 import { useTheme } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
 
+import './App.css';
 import StoreContext from './store/StoreContext';
 
 const drawerWidth = 240;
 
-function App(props) {
+const App = (props) => {
   const theme = useTheme();
   const {
     state: { dataLoading },
@@ -44,15 +43,11 @@ function App(props) {
       mx: 'auto',
       overflow: 'hidden',
       minHeight: '100vh',
-      background:
-        theme.palette.mode === 'dark'
-          ? 'rgba(255,255,255,0.035)'
-          : 'rgba(0,0,0,0.035)',
     },
   };
 
   return (
-    <Router>
+    <BrowserRouter>
       <Box sx={{ display: 'flex', background: theme.palette.background.paper }}>
         <CssBaseline />
         <Navbar
@@ -106,8 +101,8 @@ function App(props) {
         </Box>
       </Box>
       <ModalComp />
-    </Router>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

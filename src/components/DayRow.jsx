@@ -1,12 +1,13 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import { Box } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Box } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 import { useTheme } from '@mui/material/styles';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
 
 import StoreContext from '../store/StoreContext';
 

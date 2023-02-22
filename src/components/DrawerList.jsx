@@ -1,14 +1,14 @@
+import { useTheme } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Toolbar from '@mui/material/Toolbar';
-import { useTheme } from '@mui/material/styles';
 
+import { Home, Mail, Message } from '@mui/icons-material';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { Message, Home, Mail } from '@mui/icons-material';
 
 const DrawerList = ({ toggleDrawer }) => {
   const theme = useTheme();
@@ -30,21 +30,16 @@ const DrawerList = ({ toggleDrawer }) => {
       <Toolbar />
       <Divider />
       <List>
-        <NavLink
-          exact
-          to='/'
-          activeStyle={styles.activeLink}
-          style={styles.link}
-        >
-          <ListItem button onClick={() => toggleDrawer && toggleDrawer()}>
+        <NavLink to='/' style={styles.link}>
+          <ListItem onClick={() => toggleDrawer && toggleDrawer()}>
             <ListItemIcon>
               <Home />
             </ListItemIcon>
             <ListItemText primary='Shopping List' />
           </ListItem>
         </NavLink>
-        <NavLink to='/day' activeStyle={styles.activeLink} style={styles.link}>
-          <ListItem button onClick={() => toggleDrawer && toggleDrawer()}>
+        <NavLink to='/day' style={styles.link}>
+          <ListItem onClick={() => toggleDrawer && toggleDrawer()}>
             <ListItemIcon>
               <Message />
             </ListItemIcon>
@@ -54,12 +49,8 @@ const DrawerList = ({ toggleDrawer }) => {
       </List>
       <Divider />
       <List>
-        <NavLink
-          to='/contact'
-          activeStyle={styles.activeLink}
-          style={styles.link}
-        >
-          <ListItem button onClick={() => toggleDrawer && toggleDrawer()}>
+        <NavLink to='/contact' style={styles.link}>
+          <ListItem onClick={() => toggleDrawer && toggleDrawer()}>
             <ListItemIcon>
               <Mail />
             </ListItemIcon>

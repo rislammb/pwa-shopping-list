@@ -1,13 +1,17 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
 import { Box } from '@mui/material';
 
+import AddItem from '../components/AddItem';
 import PageTitle from '../components/PageTitle';
 import ShoppingTable from '../components/ShoppingTable';
 import TotalContainer from '../components/TotalContainer';
-import AddItem from '../components/AddItem';
 import StoreContext from '../store/StoreContext';
 
-const DayDetails = (props) => {
+const DayDetails = () => {
+  let { dateId } = useParams();
+
   const {
     state: { singleDay },
     setSingleDay,
@@ -22,7 +26,7 @@ const DayDetails = (props) => {
   };
 
   useEffect(() => {
-    setSingleDay(props.match.params.dateId);
+    setSingleDay(dateId);
   }, []);
 
   return (

@@ -1,18 +1,21 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import Backdrop from '@mui/material/Backdrop';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Fade from '@mui/material/Fade';
+import Modal from '@mui/material/Modal';
+import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 import DatePickerComp from './DatePickerComp';
 
 import StoreContext from '../store/StoreContext';
 
 const ModalComp = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
+  const theme = useTheme();
+
   const {
     state: { currentItems, listAsDay, visibleModal },
     toggleModal,
@@ -27,6 +30,7 @@ const ModalComp = () => {
         new Date(day.date).toLocaleDateString() ===
         new Date(date).toLocaleDateString()
     );
+
     if (exist) {
       alert('This day is already exist!');
       return;
@@ -34,7 +38,7 @@ const ModalComp = () => {
       addDay(date.toISOString(), currentItems);
       clearCurrentItems();
       toggleModal();
-      return history.push('/day');
+      return navigate('/day');
     }
   };
 
@@ -49,13 +53,9 @@ const ModalComp = () => {
       open={visibleModal}
       onClose={toggleModal}
       closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
-      }}
     >
       <Fade in={visibleModal}>
-        <Box sx={styles.card}>
+        <Box sx={{ ...styles.card, bgcolor: theme.palette.background.default }}>
           <Typography variant='h5' sx={styles.title} color='primary'>
             Save this list on Database
           </Typography>
@@ -69,8 +69,17 @@ const ModalComp = () => {
             If you save this list, your current page would clear!
           </Typography>
           <Box sx={styles.btnContainer}>
-            <Button onClick={toggleModal}>Cancel</Button>
-            <Button onClick={addDayFn}>Confirm Save</Button>
+            <Button
+              size='small'
+              variant='contained'
+              color='error'
+              onClick={toggleModal}
+            >
+              Cancel
+            </Button>
+            <Button variant='contained' color='primary' onClick={addDayFn}>
+              Save
+            </Button>
           </Box>
         </Box>
       </Fade>
@@ -87,7 +96,6 @@ const styles = {
     transform: 'translate(-50%, -50%)',
     maxWidth: '90%',
     width: 260,
-    bgcolor: '#dadada',
     boxShadow: 12,
     borderRadius: 2,
     py: 3,
@@ -109,6 +117,7 @@ const styles = {
   },
   btnContainer: {
     mt: 1,
-    textAlign: 'center',
+    display: 'flex',
+    gap: 1,
   },
 };

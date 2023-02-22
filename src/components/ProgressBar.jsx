@@ -1,8 +1,8 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import CircularProgress, {
   circularProgressClasses,
 } from '@mui/material/CircularProgress';
+import * as React from 'react';
 
 // Inspired by the former Facebook spinners.
 function FacebookCircularProgress() {
