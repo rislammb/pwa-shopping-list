@@ -75,6 +75,7 @@ const staticCache = 'site-static-v3.1.3';
 const dynamicCache = 'site-dynamic-v3.1.3';
 
 const fileToCache = [
+  '',
   '/',
   '/favicon.ico',
   '/manifest.json',
