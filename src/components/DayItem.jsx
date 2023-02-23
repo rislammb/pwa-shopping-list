@@ -59,10 +59,7 @@ const DayItem = ({ day }) => {
     },
     delete: {
       ml: 1,
-      color:
-        theme.palette.mode === 'dark'
-          ? theme.palette.secondary.light
-          : theme.palette.secondary.dark,
+      color: theme.palette.secondary.main,
     },
   };
 
@@ -72,6 +69,7 @@ const DayItem = ({ day }) => {
         onClick={() => setSingleDay(day.id)}
         to={`/day/${day.id}`}
         style={styles.link}
+        aria-label='Go day details'
       >
         <Typography sx={styles.start}>{getDate()}</Typography>
         <Typography sx={styles.middle}>Items: {day.items.length}</Typography>

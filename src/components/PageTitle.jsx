@@ -15,7 +15,7 @@ const PageTitle = ({ title, details }) => {
   };
   return details ? (
     <Typography variant='h5' sx={styles.title}>
-      <Link to='/day' style={{ color: 'inherit' }}>
+      <Link to='/day' style={{ color: 'inherit' }} aria-label='Go day list'>
         {title}
       </Link>
     </Typography>

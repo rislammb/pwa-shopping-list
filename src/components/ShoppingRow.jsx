@@ -59,11 +59,14 @@ const ShoppingRow = ({ item, index, details }) => {
     >
       <TableCell sx={{ p: 0 }}>
         {details ? (
-          <IconButton onClick={dayItemDelete} aria-label='delete'>
+          <IconButton onClick={dayItemDelete} aria-label='Delete'>
             <DeleteIcon sx={styles.delete} fontSize='small' />
           </IconButton>
         ) : (
-          <IconButton onClick={() => toggleByed(item.id)}>
+          <IconButton
+            onClick={() => toggleByed(item.id)}
+            aria-label={item.isByed ? 'Undo' : 'Check'}
+          >
             {item.isByed ? <Undo /> : <Check />}
           </IconButton>
         )}

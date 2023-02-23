@@ -33,14 +33,19 @@ const Navbar = ({ drawerWidth, handleDrawerToggle }) => {
         }}
       >
         <Box sx={{ flex: 1 }}>
-          <Link to='/' style={{ color: 'inherit' }}>
-            <IconButton color='inherit'>
+          <Link to='/' aria-label='Go home' style={{ color: 'inherit' }}>
+            <IconButton aria-label='Home' color='inherit'>
               <ShoppingBag />
             </IconButton>
           </Link>
         </Box>
         <Box>
-          <IconButton sx={{ ml: 1 }} onClick={toggleColorMode} color='inherit'>
+          <IconButton
+            aria-label='Mode'
+            sx={{ ml: 1 }}
+            onClick={toggleColorMode}
+            color='inherit'
+          >
             {theme.palette.mode === 'dark' ? (
               <Brightness7Icon />
             ) : (

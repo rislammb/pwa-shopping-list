@@ -35,25 +35,19 @@ const DayDetails = () => {
     <Box sx={{ margin: 4, display: 'flex', flexDirection: 'column', gap: 2 }}>
       <Typography
         variant='h5'
-        color={
-          theme.palette.mode === 'dark'
-            ? theme.palette.secondary.light
-            : theme.palette.secondary.main
-        }
+        color={theme.palette.secondary.main}
         align='center'
       >
         Day not found!
       </Typography>
       <Link
         style={{
-          color:
-            theme.palette.mode === 'dark'
-              ? theme.palette.primary.light
-              : theme.palette.primary.main,
+          color: theme.palette.primary.main,
           textAlign: 'center',
           fontWeight: '600',
         }}
         to='/day'
+        aria-label='Go day list'
       >
         Back
       </Link>

@@ -73,6 +73,7 @@ const DayRow = ({ day }) => {
           onClick={() => setSingleDay(day.id)}
           to={`/day/${day.id}`}
           style={styles.link}
+          aria-label='Go day details'
         >
           <Typography sx={styles.date}>{getDate()}</Typography>
           <Typography sx={styles.items}>Items: {day.items.length}</Typography>
@@ -84,7 +85,7 @@ const DayRow = ({ day }) => {
       </TableCell>
 
       <TableCell sx={{ p: 0 }}>
-        <IconButton onClick={deleteHandler} aria-label='delete'>
+        <IconButton onClick={deleteHandler} aria-label='Delete'>
           <DeleteIcon sx={styles.delete} fontSize='small' />
         </IconButton>
       </TableCell>

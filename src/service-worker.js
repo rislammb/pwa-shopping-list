@@ -71,19 +71,19 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
-const staticCache = 'site-static-v3.1.2';
-const dynamicCache = 'site-dynamic-v3.1.2';
+const staticCache = 'site-static-v3.1.3';
+const dynamicCache = 'site-dynamic-v3.1.3';
 
 const fileToCache = [
   '/',
   '/favicon.ico',
   '/manifest.json',
-  '/logo192.png',
-  '/logo512.png',
   '/index.html',
   'https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap',
   'https://fonts.gstatic.com/s/titilliumweb/v15/NaPDcZTIAOhVxoMyOr9n_E7ffBzCGItzYw.woff2',
   'https://fonts.gstatic.com/s/titilliumweb/v15/NaPecZTIAOhVxoMyOr9n_E7fdMPmDQ.woff2',
+  'https://fonts.gstatic.com/s/titilliumweb/v15/NaPDcZTIAOhVxoMyOr9n_E7ffBzCGItzY5abuWI.woff2',
+  'https://fonts.gstatic.com/s/titilliumweb/v15/NaPecZTIAOhVxoMyOr9n_E7fdMPmDaZRbrw.woff2',
 ];
 
 self.addEventListener('install', (evt) => {

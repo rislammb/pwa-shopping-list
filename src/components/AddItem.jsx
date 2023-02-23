@@ -137,7 +137,12 @@ const AddItem = ({ day }) => {
           variant='standard'
         />
       )}
-      <IconButton type='submit' color='primary' onClick={addItemFn}>
+      <IconButton
+        aria-label='Add'
+        type='submit'
+        color='primary'
+        onClick={addItemFn}
+      >
         <Add fontSize='large' />
       </IconButton>
     </Box>

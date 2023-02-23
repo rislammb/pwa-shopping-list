@@ -28,6 +28,7 @@ const DrawerList = ({ toggleDrawer }) => {
       <Divider />
       <List>
         <NavLink
+          aria-label='Go home'
           to='/'
           style={({ isActive }) => (isActive ? styles.activeLink : styles.link)}
         >
@@ -39,6 +40,7 @@ const DrawerList = ({ toggleDrawer }) => {
           </ListItem>
         </NavLink>
         <NavLink
+          aria-label='Go day list'
           to='/day'
           style={({ isActive }) => (isActive ? styles.activeLink : styles.link)}
         >
@@ -53,6 +55,7 @@ const DrawerList = ({ toggleDrawer }) => {
       <Divider />
       <List>
         <NavLink
+          aria-label='Go contact'
           to='/contact'
           style={({ isActive }) => (isActive ? styles.activeLink : styles.link)}
         >
