@@ -71,11 +71,10 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
-const staticCache = 'site-static-v3.1.4';
-const dynamicCache = 'site-dynamic-v3.1.4';
+const staticCache = 'site-static-v3.1.5';
+const dynamicCache = 'site-dynamic-v3.1.5';
 
 const fileToCache = [
-  '',
   '/',
   '/favicon.ico',
   '/manifest.json',
@@ -139,11 +138,11 @@ self.addEventListener('fetch', (evt) => {
         );
       })
       .catch(() => {
-        if (evt.request.url.indexOf('/day') > -1) {
-          return caches.match('/day');
-        } else {
-          return caches.match('/');
-        }
+        // if (evt.request.url.indexOf('/day') > -1) {
+        //   return caches.match('/day');
+        // } else {
+        return caches.match('/');
+        // }
       })
   );
 });
