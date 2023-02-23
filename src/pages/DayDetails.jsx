@@ -1,7 +1,9 @@
+import dayjs from 'dayjs';
 import { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 import AddItem from '../components/AddItem';
 import PageTitle from '../components/PageTitle';
@@ -11,30 +13,50 @@ import StoreContext from '../store/StoreContext';
 
 const DayDetails = () => {
   let { dateId } = useParams();
+  const theme = useTheme();
 
   const {
     state: { singleDay },
     setSingleDay,
   } = useContext(StoreContext);
 
-  const getDate = () => {
-    const localString = new Date(singleDay?.date).toDateString();
-    const date = localString.substr(8, 2);
-    const month = localString.substr(3, 4);
-    const year = localString.substr(10, 5);
-    return date + month + year;
-  };
-
   useEffect(() => {
     setSingleDay(dateId);
-  }, []);
+  }, [dateId]);
 
-  return (
+  return singleDay ? (
     <Box sx={styles.container}>
-      <PageTitle title={`Date: ${getDate()}`} details />
+      <PageTitle title={dayjs(singleDay?.date).format('DD MMM YYYY')} details />
       <AddItem day />
       <ShoppingTable details />
       <TotalContainer details />
+    </Box>
+  ) : (
+    <Box sx={{ margin: 4, display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <Typography
+        variant='h5'
+        color={
+          theme.palette.mode === 'dark'
+            ? theme.palette.secondary.light
+            : theme.palette.secondary.main
+        }
+        align='center'
+      >
+        Day not found!
+      </Typography>
+      <Link
+        style={{
+          color:
+            theme.palette.mode === 'dark'
+              ? theme.palette.primary.light
+              : theme.palette.primary.main,
+          textAlign: 'center',
+          fontWeight: '600',
+        }}
+        to='/day'
+      >
+        Back
+      </Link>
     </Box>
   );
 };

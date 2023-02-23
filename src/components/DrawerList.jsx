@@ -15,13 +15,10 @@ const DrawerList = ({ toggleDrawer }) => {
 
   const styles = {
     link: {
-      color:
-        theme.palette.mode === 'dark'
-          ? theme.palette.primary.light
-          : theme.palette.primary.dark,
+      color: theme.palette.primary.main,
     },
     activeLink: {
-      color: theme.palette.mode === 'dark' ? 'lightgreen' : 'green',
+      color: theme.palette.mode === 'dark' ? 'lightgreen' : '#0aaa1a',
     },
   };
 
@@ -30,7 +27,10 @@ const DrawerList = ({ toggleDrawer }) => {
       <Toolbar />
       <Divider />
       <List>
-        <NavLink to='/' style={styles.link}>
+        <NavLink
+          to='/'
+          style={({ isActive }) => (isActive ? styles.activeLink : styles.link)}
+        >
           <ListItem onClick={() => toggleDrawer && toggleDrawer()}>
             <ListItemIcon>
               <Home />
@@ -38,7 +38,10 @@ const DrawerList = ({ toggleDrawer }) => {
             <ListItemText primary='Shopping List' />
           </ListItem>
         </NavLink>
-        <NavLink to='/day' style={styles.link}>
+        <NavLink
+          to='/day'
+          style={({ isActive }) => (isActive ? styles.activeLink : styles.link)}
+        >
           <ListItem onClick={() => toggleDrawer && toggleDrawer()}>
             <ListItemIcon>
               <Message />
@@ -49,7 +52,10 @@ const DrawerList = ({ toggleDrawer }) => {
       </List>
       <Divider />
       <List>
-        <NavLink to='/contact' style={styles.link}>
+        <NavLink
+          to='/contact'
+          style={({ isActive }) => (isActive ? styles.activeLink : styles.link)}
+        >
           <ListItem onClick={() => toggleDrawer && toggleDrawer()}>
             <ListItemIcon>
               <Mail />

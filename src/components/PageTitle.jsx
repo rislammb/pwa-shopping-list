@@ -10,10 +10,7 @@ const PageTitle = ({ title, details }) => {
     title: {
       textAlign: 'center',
       my: 1,
-      color:
-        theme.palette.mode === 'dark'
-          ? theme.palette.primary.light
-          : theme.palette.primary.dark,
+      color: theme.palette.primary.main,
     },
   };
   return details ? (

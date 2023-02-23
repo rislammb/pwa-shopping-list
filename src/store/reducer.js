@@ -15,9 +15,11 @@ import {
   SET_SINGLE_DAY,
   TOGGLE_BYED,
   TOGGLE_MODAL,
+  TOGGLE_MODE,
 } from './types';
 
 export const initialState = {
+  mode: 'light',
   dataLoading: true,
   currentItems: [],
   visibleModal: false,
@@ -27,6 +29,12 @@ export const initialState = {
 
 export const reducer = (state, action) => {
   switch (action.type) {
+    case TOGGLE_MODE:
+      return {
+        ...state,
+        mode: state.mode === 'light' ? 'dark' : 'light',
+      };
+
     case DATA_LOADING:
       return {
         ...state,
@@ -131,8 +139,8 @@ export const reducer = (state, action) => {
       );
 
       tempListAsDay[dayIndex].items = [
-        action.payload.newItem,
         ...tempListAsDay[dayIndex].items,
+        action.payload.newItem,
       ];
 
       return {

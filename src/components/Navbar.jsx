@@ -14,7 +14,7 @@ import StoreContext from '../store/StoreContext';
 
 const Navbar = ({ drawerWidth, handleDrawerToggle }) => {
   const theme = useTheme();
-  const { colorMode } = useContext(StoreContext);
+  const { toggleColorMode } = useContext(StoreContext);
 
   return (
     <AppBar
@@ -40,11 +40,7 @@ const Navbar = ({ drawerWidth, handleDrawerToggle }) => {
           </Link>
         </Box>
         <Box>
-          <IconButton
-            sx={{ ml: 1 }}
-            onClick={colorMode.toggleColorMode}
-            color='inherit'
-          >
+          <IconButton sx={{ ml: 1 }} onClick={toggleColorMode} color='inherit'>
             {theme.palette.mode === 'dark' ? (
               <Brightness7Icon />
             ) : (

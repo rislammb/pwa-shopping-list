@@ -16,10 +16,7 @@ const Contact = () => {
     },
     link: {
       textDecoration: 'none',
-      color:
-        theme.palette.mode === 'dark'
-          ? theme.palette.primary.light
-          : theme.palette.primary.dark,
+      color: theme.palette.primary.main,
     },
     fontSize: {
       fontSize: 17,

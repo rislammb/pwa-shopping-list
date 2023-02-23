@@ -40,11 +40,11 @@ const TotalContainer = ({ day, dayList, details }) => {
     }
   };
 
+  const getUnBuyedItems = () =>
+    currentItems?.filter((item) => item.isByed !== true || item.price === '');
+
   const saveList = () => {
-    const newItems = currentItems?.filter(
-      (item) => item.isByed !== true || item.price === ''
-    );
-    if (newItems.length > 0) {
+    if (getUnBuyedItems().length > 0) {
       window.alert('Your shopping not completed!');
     } else {
       toggleModal();
@@ -78,10 +78,7 @@ const TotalContainer = ({ day, dayList, details }) => {
     },
     delete: {
       mr: 1,
-      color:
-        theme.palette.mode === 'dark'
-          ? theme.palette.secondary.light
-          : theme.palette.secondary.main,
+      color: theme.palette.secondary.main,
     },
   };
 
@@ -92,7 +89,7 @@ const TotalContainer = ({ day, dayList, details }) => {
           <Button
             onClick={clearAllHandler}
             disabled={listAsDay.length < 1 ? true : false}
-            style={styles.delete}
+            sx={styles.delete}
           >
             Clear all days
           </Button>
@@ -114,7 +111,11 @@ const TotalContainer = ({ day, dayList, details }) => {
           </Button>
           <Button
             color='primary'
-            disabled={currentItems?.length < 1 ? true : false}
+            disabled={
+              currentItems?.length < 1 || getUnBuyedItems().length > 0
+                ? true
+                : false
+            }
             onClick={saveList}
           >
             Save Day

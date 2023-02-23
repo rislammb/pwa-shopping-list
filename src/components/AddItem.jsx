@@ -3,16 +3,20 @@ import { useContext, useEffect, useState } from 'react';
 import Add from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
+import { useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 
 import StoreContext from '../store/StoreContext';
 
 const AddItem = ({ day }) => {
+  const theme = useTheme();
+
   const {
     state: { currentItems, singleDay },
     addItem,
     addItemToDay,
   } = useContext(StoreContext);
+
   const [itemName, setItemName] = useState('');
   const [amount, setAmount] = useState('');
   const [price, setPrice] = useState('');

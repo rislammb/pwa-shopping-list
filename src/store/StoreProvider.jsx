@@ -1,5 +1,5 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import React, { useEffect, useMemo, useReducer, useState } from 'react';
+import React, { useEffect, useMemo, useReducer } from 'react';
 
 import App from '../App';
 import StoreContext from './StoreContext';
@@ -16,19 +16,17 @@ import {
   DELETE_DAY,
   DELETE_ITEM,
   DELETE_ITEM_FROM_DAY,
-  SET_CURRENT_ITEMS,
-  SET_LIST_AS_DAY,
   SET_PRICE,
   SET_SINGLE_DAY,
   TOGGLE_BYED,
   TOGGLE_MODAL,
+  TOGGLE_MODE,
 } from './types';
 
 const StoreProvider = () => {
-  const [mode, setMode] = useState('light');
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  console.log(state.singleDay.items);
+  const initial =
+    JSON.parse(localStorage.getItem('PWA_SHOPPING_LIST_STATE')) ?? initialState;
+  const [state, dispatch] = useReducer(reducer, initial);
 
   const addItem = (itemName, amount) => {
     const newItem = {
@@ -121,101 +119,44 @@ const StoreProvider = () => {
   };
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const localCurrentItems = await localStorage.getItem(
-          'CURRENT_ITEMS_KEY'
-        );
-        if (localCurrentItems !== null) {
-          dispatch({
-            type: SET_CURRENT_ITEMS,
-            payload: JSON.parse(localCurrentItems),
-          });
-        }
-        const localListAsDay = await localStorage.getItem('LIST_AS_DAY_KEY');
-        if (localListAsDay !== null) {
-          dispatch({
-            type: SET_LIST_AS_DAY,
-            payload: JSON.parse(localListAsDay),
-          });
-        }
-        dispatch({
-          type: DATA_LOADING,
-          payload: false,
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchData();
+    localStorage.setItem('PWA_SHOPPING_LIST_STATE', JSON.stringify(state));
+  }, [state]);
+
+  useEffect(() => {
+    dispatch({ type: DATA_LOADING, payload: false });
   }, []);
 
-  useEffect(() => {
-    async function saveCurrentItems() {
-      try {
-        await localStorage.setItem(
-          'CURRENT_ITEMS_KEY',
-          JSON.stringify(state.currentItems)
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    if (!state.dataLoading) saveCurrentItems();
-  }, [state.currentItems, state.dataLoading]);
-
-  useEffect(() => {
-    async function saveListAsDay() {
-      try {
-        await localStorage.setItem(
-          'LIST_AS_DAY_KEY',
-          JSON.stringify(state.listAsDay)
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    if (!state.dataLoading) saveListAsDay();
-  }, [state.listAsDay, state.dataLoading]);
-
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-      },
-    }),
-    []
-  );
+  const toggleColorMode = () => dispatch({ type: TOGGLE_MODE });
 
   const theme = useMemo(
     () =>
       createTheme({
         palette: {
-          mode,
+          mode: state.mode,
           primary: {
-            main: '#0087b1',
-            light: '#00b9f1',
+            main: state.mode === 'dark' ? '#2fceff' : '#0087b1',
+            light: '#2fceff',
             dark: '#046380',
           },
           secondary: {
-            main: '#f00927',
-            light: '#ff576d',
+            main: state.mode === 'dark' ? '#ff6f6f' : '#f00927',
+            light: '#ff6f6f',
           },
           background: {
-            paper: mode === 'light' ? '#ececec' : '#292929',
+            paper: state.mode === 'dark' ? '#292929' : '#ececec',
           },
         },
         typography: {
           fontFamily: "'Titillium Web', sans-serif",
         },
       }),
-    [mode]
+    [state.mode]
   );
 
   return (
     <StoreContext.Provider
       value={{
-        colorMode,
+        toggleColorMode,
         state,
         addItem,
         deleteItem,

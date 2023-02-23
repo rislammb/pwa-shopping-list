@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Titillium+Web&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap');
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,5 +9,6 @@ a {
 }
 body {
   background-color: #f1f1f1;
+  /* color: #2fceff; */
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

@@ -17,15 +17,11 @@ const ShoppingTable = ({ details }) => {
   } = useContext(StoreContext);
 
   useEffect(() => {
-    console.log('table');
-    async function loadItems() {
-      if (details) {
-        await setItems(singleDay?.items);
-      } else {
-        await setItems(currentItems);
-      }
+    if (details) {
+      setItems(singleDay?.items);
+    } else {
+      setItems(currentItems);
     }
-    loadItems();
   }, [details, singleDay?.items, currentItems]);
 
   return (

@@ -9,6 +9,7 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 
+import dayjs from 'dayjs';
 import StoreContext from '../store/StoreContext';
 
 const DayRow = ({ day }) => {
@@ -21,13 +22,7 @@ const DayRow = ({ day }) => {
     return total.toFixed(2);
   };
 
-  const getDate = () => {
-    const localString = new Date(day?.date).toDateString();
-    const date = localString.substr(8, 2);
-    const month = localString.substr(3, 4);
-    const year = localString.substr(10, 5);
-    return date + month + year;
-  };
+  const getDate = () => dayjs(day?.date).format('DD MMM YYYY');
 
   const deleteHandler = () => {
     if (window.confirm(`Are you sure you want to delete '${getDate()}'?`)) {
@@ -49,10 +44,7 @@ const DayRow = ({ day }) => {
     },
     date: {
       flex: 3,
-      color:
-        theme.palette.mode === 'dark'
-          ? theme.palette.primary.light
-          : theme.palette.primary.dark,
+      color: theme.palette.primary.main,
     },
     items: {
       flex: 2,
@@ -64,10 +56,7 @@ const DayRow = ({ day }) => {
       justifyContent: 'space-between',
     },
     delete: {
-      color:
-        theme.palette.mode === 'dark'
-          ? theme.palette.secondary.light
-          : theme.palette.secondary.main,
+      color: theme.palette.secondary.main,
     },
   };
 

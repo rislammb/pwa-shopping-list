@@ -1,4 +1,6 @@
+export const TOGGLE_MODE = 'TOGGLE_MODE';
 export const DATA_LOADING = 'DATA_LOADING';
+
 export const SET_CURRENT_ITEMS = 'SET_CURRENT_ITEMS';
 export const ADD_ITEM = 'ADD_ITEM';
 export const DELETE_ITEM = 'DELETE_ITEM';

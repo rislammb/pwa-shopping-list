@@ -56,7 +56,15 @@ const ModalComp = () => {
     >
       <Fade in={visibleModal}>
         <Box sx={{ ...styles.card, bgcolor: theme.palette.background.default }}>
-          <Typography variant='h5' sx={styles.title} color='primary'>
+          <Typography
+            variant='h5'
+            sx={styles.title}
+            color={
+              theme.palette.mode === 'dark'
+                ? theme.palette.primary.light
+                : theme.palette.primary.main
+            }
+          >
             Save this list on Database
           </Typography>
           <Typography sx={{ textAlign: 'center' }}>
@@ -65,7 +73,15 @@ const ModalComp = () => {
           <Box sx={styles.datePicker}>
             <DatePickerComp date={date} setDate={setDate} />
           </Box>
-          <Typography sx={{ color: '#c35', textAlign: 'center' }}>
+          <Typography
+            sx={{
+              color:
+                theme.palette.mode === 'dark'
+                  ? theme.palette.secondary.light
+                  : theme.palette.secondary.main,
+              textAlign: 'center',
+            }}
+          >
             If you save this list, your current page would clear!
           </Typography>
           <Box sx={styles.btnContainer}>
