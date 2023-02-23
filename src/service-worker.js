@@ -71,16 +71,19 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
-const staticCache = 'site-static-v3.1.0';
-const dynamicCache = 'site-dynamic-v3.1.0';
+const staticCache = 'site-static-v3.1.1';
+const dynamicCache = 'site-dynamic-v3.1.1';
 
 const fileToCache = [
   '/',
+  '/favicon.ico',
+  '/manifest.json',
+  '/logo192.png',
+  '/logo512.png',
   '/index.html',
-  '/day',
-  '/contact',
-  'https://fonts.googleapis.com/css?family=Titillium+Web&display=swap',
-  'https://fonts.gstatic.com/s/titilliumweb/v10/NaPecZTIAOhVxoMyOr9n_E7fdMPmDQ.woff2',
+  'https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap',
+  'https://fonts.gstatic.com/s/titilliumweb/v15/NaPDcZTIAOhVxoMyOr9n_E7ffBzCGItzYw.woff2',
+  'https://fonts.gstatic.com/s/titilliumweb/v15/NaPecZTIAOhVxoMyOr9n_E7fdMPmDQ.woff2',
 ];
 
 self.addEventListener('install', (evt) => {
@@ -115,14 +118,12 @@ const limitCacheSize = (cacheName, size) => {
 
 self.addEventListener('fetch', (evt) => {
   if (!(evt.request.url.indexOf('http') === 0)) {
-    console.log('if', evt.request);
     return;
   }
   evt.respondWith(
     caches
       .match(evt.request)
       .then((cacheRes) => {
-        console.log('cache res', cacheRes);
         return (
           cacheRes ||
           fetch(evt.request).then((fetchRes) => {
@@ -130,7 +131,7 @@ self.addEventListener('fetch', (evt) => {
             return caches.open(dynamicCache).then((cache) => {
               cache.put(evt.request.url, fetchRes.clone());
               // check cached items size
-              limitCacheSize(dynamicCache, 15);
+              limitCacheSize(dynamicCache, 20);
               return fetchRes;
             });
           })
