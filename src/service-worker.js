@@ -71,8 +71,8 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
-const staticCache = 'site-static-v3.1.3';
-const dynamicCache = 'site-dynamic-v3.1.3';
+const staticCache = 'site-static-v3.1.4';
+const dynamicCache = 'site-dynamic-v3.1.4';
 
 const fileToCache = [
   '',
