@@ -120,6 +120,7 @@ export default function ControlledAccordions() {
                 // aria-controls='panel1bh-content'
                 // id='panel1bh-header'
                 sx={{
+                  flex: 1,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
