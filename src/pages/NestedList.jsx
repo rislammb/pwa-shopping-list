@@ -122,15 +122,14 @@ export default function ControlledAccordions() {
                 sx={{
                   '& .Mui-expanded': {
                     margin: 0,
-                    background: 'green',
                   },
                 }}
               >
                 <Typography sx={{ textAlign: 'center', flex: 1 }}>
                   {month.name}
                 </Typography>
+                <p>Total:</p>
               </AccordionSummary>
-              <p>Total</p>
             </div>
             <AccordionDetails>
               {month.days.map((day) => (
