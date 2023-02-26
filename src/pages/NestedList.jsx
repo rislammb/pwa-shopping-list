@@ -120,12 +120,23 @@ export default function ControlledAccordions() {
                 // aria-controls='panel1bh-content'
                 // id='panel1bh-header'
                 sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+
                   '& .Mui-expanded': {
                     margin: 0,
                   },
                 }}
               >
-                <Typography sx={{ textAlign: 'center', flex: 1 }}>
+                <Typography
+                  sx={{
+                    textAlign: 'center',
+                    flex: 1,
+                    color: theme.palette.primary.main,
+                    fontWeight: 600,
+                  }}
+                >
                   {month.name}
                 </Typography>
                 <p>Total:</p>
