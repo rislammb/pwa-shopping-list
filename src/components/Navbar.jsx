@@ -26,10 +26,7 @@ const Navbar = ({ drawerWidth, handleDrawerToggle }) => {
     >
       <Toolbar
         sx={{
-          backgroundColor:
-            theme.palette.mode === 'dark'
-              ? theme.palette.primary.dark
-              : theme.palette.primary.main,
+          backgroundColor: theme.palette.primary.dark,
         }}
       >
         <Box sx={{ flex: 1 }}>

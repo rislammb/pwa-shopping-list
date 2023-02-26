@@ -20,9 +20,7 @@ const drawerWidth = 240;
 
 const App = (props) => {
   const theme = useTheme();
-  const {
-    state: { dataLoading },
-  } = useContext(StoreContext);
+  const { loading } = useContext(StoreContext);
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -56,7 +54,7 @@ const App = (props) => {
         />
         <Box component='main' sx={styles.main}>
           <Toolbar />
-          {dataLoading ? <ProgressBar /> : <Main />}
+          {loading ? <ProgressBar /> : <Main />}
         </Box>
         <Box
           component='nav'

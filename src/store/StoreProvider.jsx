@@ -1,9 +1,10 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import React, { useEffect, useMemo, useReducer } from 'react';
+import React, { useEffect, useMemo, useReducer, useState } from 'react';
 
 import App from '../App';
 import StoreContext from './StoreContext';
 
+import dayjs from 'dayjs';
 import { generateId } from '../utils';
 import { initialState, reducer } from './reducer';
 import {
@@ -12,7 +13,6 @@ import {
   ADD_ITEM_TO_DAY,
   CLEAR_ALL_DAYS,
   CLEAR_CURRENT_ITEMS,
-  DATA_LOADING,
   DELETE_DAY,
   DELETE_ITEM,
   DELETE_ITEM_FROM_DAY,
@@ -24,6 +24,7 @@ import {
 } from './types';
 
 const StoreProvider = () => {
+  const [loading, setLoading] = useState(true);
   const initial =
     JSON.parse(localStorage.getItem('PWA_SHOPPING_LIST_STATE')) ?? initialState;
   const [state, dispatch] = useReducer(reducer, initial);
@@ -77,6 +78,7 @@ const StoreProvider = () => {
   const addDay = (date, items) => {
     const newDay = {
       id: generateId(),
+      month: dayjs(date).format('MMM YYYY'),
       date,
       items,
     };
@@ -123,7 +125,7 @@ const StoreProvider = () => {
   }, [state]);
 
   useEffect(() => {
-    dispatch({ type: DATA_LOADING, payload: false });
+    setLoading(false);
   }, []);
 
   const toggleColorMode = () => dispatch({ type: TOGGLE_MODE });
@@ -157,6 +159,7 @@ const StoreProvider = () => {
     <StoreContext.Provider
       value={{
         toggleColorMode,
+        loading,
         state,
         addItem,
         deleteItem,

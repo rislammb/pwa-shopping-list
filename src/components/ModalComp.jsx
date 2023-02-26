@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,10 +26,8 @@ const ModalComp = () => {
   const [date, setDate] = useState(new Date());
 
   const addDayFn = () => {
-    const exist = listAsDay.find(
-      (day) =>
-        new Date(day.date).toLocaleDateString() ===
-        new Date(date).toLocaleDateString()
+    const exist = listAsDay.find((day) =>
+      dayjs(day.date).isSame(dayjs(date), 'day')
     );
 
     if (exist) {
@@ -55,15 +54,11 @@ const ModalComp = () => {
       closeAfterTransition
     >
       <Fade in={visibleModal}>
-        <Box sx={{ ...styles.card, bgcolor: theme.palette.background.default }}>
+        <Box sx={{ ...styles.card, bgcolor: theme.palette.background.paper }}>
           <Typography
             variant='h5'
             sx={styles.title}
-            color={
-              theme.palette.mode === 'dark'
-                ? theme.palette.primary.light
-                : theme.palette.primary.main
-            }
+            color={theme.palette.primary.main}
           >
             Save this list on Database
           </Typography>
@@ -75,22 +70,14 @@ const ModalComp = () => {
           </Box>
           <Typography
             sx={{
-              color:
-                theme.palette.mode === 'dark'
-                  ? theme.palette.secondary.light
-                  : theme.palette.secondary.main,
+              color: theme.palette.secondary.main,
               textAlign: 'center',
             }}
           >
             If you save this list, your current page would clear!
           </Typography>
           <Box sx={styles.btnContainer}>
-            <Button
-              size='small'
-              variant='contained'
-              color='error'
-              onClick={toggleModal}
-            >
+            <Button variant='contained' color='error' onClick={toggleModal}>
               Cancel
             </Button>
             <Button variant='contained' color='primary' onClick={addDayFn}>
@@ -122,7 +109,7 @@ const styles = {
     justifyContent: 'center',
   },
   title: {
-    mb: 1,
+    mb: 2,
     textAlign: 'center',
   },
   datePicker: {
@@ -132,7 +119,7 @@ const styles = {
     },
   },
   btnContainer: {
-    mt: 1,
+    mt: 2,
     display: 'flex',
     gap: 1,
   },

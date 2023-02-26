@@ -5,7 +5,6 @@ import {
   ADD_ITEM_TO_DAY,
   CLEAR_ALL_DAYS,
   CLEAR_CURRENT_ITEMS,
-  DATA_LOADING,
   DELETE_DAY,
   DELETE_ITEM,
   DELETE_ITEM_FROM_DAY,
@@ -20,7 +19,6 @@ import {
 
 export const initialState = {
   mode: 'light',
-  dataLoading: true,
   currentItems: [],
   visibleModal: false,
   listAsDay: [],
@@ -33,12 +31,6 @@ export const reducer = (state, action) => {
       return {
         ...state,
         mode: state.mode === 'light' ? 'dark' : 'light',
-      };
-
-    case DATA_LOADING:
-      return {
-        ...state,
-        dataLoading: action.payload,
       };
 
     case SET_CURRENT_ITEMS:
@@ -132,7 +124,6 @@ export const reducer = (state, action) => {
 
     case ADD_ITEM_TO_DAY:
       const tempListAsDay = deepClone(state.listAsDay);
-      console.log(tempListAsDay);
 
       const dayIndex = tempListAsDay.findIndex(
         (day) => day.id === action.payload.dayId
@@ -146,6 +137,7 @@ export const reducer = (state, action) => {
       return {
         ...state,
         listAsDay: tempListAsDay,
+        singleDay: tempListAsDay.find((day) => day.id === action.payload.dayId),
       };
 
     case DELETE_ITEM_FROM_DAY:
@@ -154,12 +146,15 @@ export const reducer = (state, action) => {
       const dayInde = temListAsDay.findIndex(
         (day) => day.id === action.payload.dayId
       );
+
       temListAsDay[dayInde].items = temListAsDay[dayInde].items.filter(
         (item) => item.id !== action.payload.itemId
       );
+
       return {
         ...state,
         listAsDay: temListAsDay,
+        singleDay: temListAsDay.find((day) => day.id === action.payload.dayId),
       };
 
     default:
