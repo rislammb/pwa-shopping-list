@@ -11,12 +11,12 @@ import TotalPrice from './TotalPrice';
 
 import StoreContext from '../store/StoreContext';
 
-const TotalContainer = ({ day, dayList, details }) => {
+const TotalContainer = ({ day, dayList, detailsDay }) => {
   const navigate = useNavigate();
   const theme = useTheme();
 
   const {
-    state: { currentItems, listAsDay, singleDay },
+    state: { currentItems, listAsDay },
     toggleModal,
     clearCurrentItems,
     clearAllDays,
@@ -30,8 +30,8 @@ const TotalContainer = ({ day, dayList, details }) => {
       });
       return grossTotal.toFixed(2);
     } else {
-      const newItems = details
-        ? singleDay?.items?.filter((item) => +item.price > 0)
+      const newItems = detailsDay
+        ? detailsDay.items?.filter((item) => +item.price > 0)
         : currentItems?.filter((item) => +item.price > 0);
 
       let totalPrice = 0;
@@ -94,8 +94,8 @@ const TotalContainer = ({ day, dayList, details }) => {
             Clear all days
           </Button>
         </TotalPrice>
-      ) : details ? (
-        <TotalPrice details={details} total={calculateTotal()}>
+      ) : detailsDay ? (
+        <TotalPrice detailsDay={detailsDay} total={calculateTotal()}>
           <IconButton onClick={() => navigate('/day')}>
             <ArrowBackRounded color='primary' />
           </IconButton>

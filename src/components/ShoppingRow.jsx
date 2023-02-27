@@ -14,24 +14,19 @@ import ItemPrice from './ItemPrice';
 
 import StoreContext from '../store/StoreContext';
 
-const ShoppingRow = ({ item, index, details }) => {
+const ShoppingRow = ({ item, index, detailsDay }) => {
   const navigate = useNavigate();
   const theme = useTheme();
 
-  const {
-    state: { singleDay },
-    deleteItem,
-    toggleByed,
-    deleteItemFromDay,
-    deleteDay,
-  } = useContext(StoreContext);
+  const { deleteItem, toggleByed, deleteItemFromDay, deleteDay } =
+    useContext(StoreContext);
 
   const dayItemDelete = () => {
     if (window.confirm(`Are you sure you want to delete '${item.itemName}'?`)) {
-      if (singleDay.items.length > 1) {
-        deleteItemFromDay(singleDay.id, item.id);
+      if (detailsDay.items.length > 1) {
+        deleteItemFromDay(detailsDay.id, item.id);
       } else {
-        deleteDay(singleDay.id);
+        deleteDay(detailsDay.id);
         return navigate('/day');
       }
     }
@@ -58,7 +53,7 @@ const ShoppingRow = ({ item, index, details }) => {
       }}
     >
       <TableCell sx={{ p: 0 }}>
-        {details ? (
+        {detailsDay ? (
           <IconButton onClick={dayItemDelete} aria-label='Delete'>
             <DeleteIcon sx={styles.delete} fontSize='small' />
           </IconButton>
@@ -79,7 +74,7 @@ const ShoppingRow = ({ item, index, details }) => {
       </TableCell>
       <TableCell sx={{ flex: 3, px: 1 }}>{item.amount}</TableCell>
       <TableCell align='right' sx={{ p: 0, width: 57 }}>
-        {details ? (
+        {detailsDay ? (
           <Typography align='right'>{item.price}</Typography>
         ) : item.isBuyed ? (
           <ItemPrice item={item} />

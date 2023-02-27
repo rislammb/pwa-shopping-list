@@ -16,7 +16,6 @@ const DayDetails = () => {
   const {
     state: { listAsDay },
   } = useContext(StoreContext);
-
   const theme = useTheme();
 
   const detailsDay = listAsDay?.find((day) => day.id === dateId);
@@ -27,9 +26,9 @@ const DayDetails = () => {
         title={dayjs(detailsDay?.date).format('DD MMM YYYY')}
         details
       />
-      <AddItem day />
-      <ShoppingTable details />
-      <TotalContainer details />
+      <AddItem detailsDay={detailsDay} />
+      <ShoppingTable detailsDay={detailsDay} />
+      <TotalContainer detailsDay={detailsDay} />
     </Box>
   ) : (
     <Box mt={3}>

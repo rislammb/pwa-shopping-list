@@ -9,20 +9,20 @@ import TableRow from '@mui/material/TableRow';
 
 import StoreContext from '../store/StoreContext';
 
-const ShoppingTable = ({ details }) => {
+const ShoppingTable = ({ detailsDay }) => {
   const [items, setItems] = useState([]);
 
   const {
-    state: { singleDay, currentItems },
+    state: { currentItems },
   } = useContext(StoreContext);
 
   useEffect(() => {
-    if (details) {
-      setItems(singleDay?.items);
+    if (detailsDay) {
+      setItems(detailsDay?.items);
     } else {
       setItems(currentItems);
     }
-  }, [details, singleDay?.items, currentItems]);
+  }, [detailsDay, currentItems]);
 
   return (
     <TableContainer
@@ -42,7 +42,7 @@ const ShoppingTable = ({ details }) => {
                 key={item.id}
                 item={item}
                 index={index}
-                details={details}
+                detailsDay={detailsDay}
               />
             ))
           ) : (

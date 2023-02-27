@@ -99,14 +99,12 @@ export const reducer = (state, action) => {
       return oldState;
 
     case ADD_ITEM_TO_DAY:
-      const dayIndex = oldState.listAsDay.findIndex(
-        (day) => day.id === action.payload.dayId
-      );
-
-      oldState.listAsDay[dayIndex].items = [
-        ...oldState.listAsDay[dayIndex].items,
-        action.payload.newItem,
-      ];
+      const dayIndex = oldState.listAsDay.findIndex((day) => {
+        return day.id === action.payload.dayId;
+      });
+      if (dayIndex > -1) {
+        oldState.listAsDay[dayIndex].items.push(action.payload.newItem);
+      }
 
       return oldState;
 
@@ -115,10 +113,11 @@ export const reducer = (state, action) => {
         (day) => day.id === action.payload.dayId
       );
 
-      oldState.listAsDay[delDayIndex].items = oldState.listAsDay[
-        delDayIndex
-      ].items.filter((item) => item.id !== action.payload.itemId);
-
+      if (delDayIndex > -1) {
+        oldState.listAsDay[delDayIndex].items = oldState.listAsDay[
+          delDayIndex
+        ].items.filter((item) => item.id !== action.payload.itemId);
+      }
       return oldState;
 
     default:

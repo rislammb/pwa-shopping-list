@@ -7,9 +7,9 @@ import TextField from '@mui/material/TextField';
 
 import StoreContext from '../store/StoreContext';
 
-const AddItem = ({ day }) => {
+const AddItem = ({ detailsDay }) => {
   const {
-    state: { currentItems, singleDay },
+    state: { currentItems },
     addItem,
     addItemToDay,
   } = useContext(StoreContext);
@@ -53,8 +53,8 @@ const AddItem = ({ day }) => {
     e.preventDefault();
 
     setError({ name: '', amount: '', price: '' });
-    const exist = day
-      ? singleDay?.items?.find(
+    const exist = detailsDay
+      ? detailsDay?.items?.find(
           (item) => item?.itemName?.toLowerCase() === itemName.toLowerCase()
         )
       : currentItems?.find(
@@ -67,11 +67,15 @@ const AddItem = ({ day }) => {
       setError((prev) => ({ ...prev, name: 'This name already exist!' }));
     } else if (amount.trim() === '') {
       setError((prev) => ({ ...prev, amount: 'Enter amount' }));
-    } else if (day && price.trim() === '') {
+    } else if (detailsDay && price.trim() === '') {
       setError((prev) => ({ ...prev, price: 'Price' }));
     } else {
-      if (day) {
-        addItemToDay(itemName.trim(), amount.trim(), price.trim());
+      if (detailsDay) {
+        addItemToDay(detailsDay.id, {
+          itemName: itemName.trim(),
+          amount: amount.trim(),
+          price: price.trim(),
+        });
         setItemName('');
         setAmount('');
         setPrice('');
@@ -122,7 +126,7 @@ const AddItem = ({ day }) => {
         onChange={amountChangeHandler}
         variant='standard'
       />
-      {day && (
+      {detailsDay && (
         <TextField
           sx={{ flex: 1 }}
           error={error.price ? true : false}

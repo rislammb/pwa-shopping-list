@@ -91,18 +91,18 @@ const StoreProvider = () => {
   const deleteMonth = (monthName) =>
     dispatch({ type: DELETE_MONTH, payload: monthName });
 
-  const addItemToDay = (itemName, amount, price) => {
+  const addItemToDay = (dateId, data) => {
     const newItem = {
       id: generateId(),
-      itemName,
-      amount,
-      price,
+      itemName: data.itemName,
+      amount: data.amount,
+      price: data.price,
       isBuyed: true,
     };
 
     dispatch({
       type: ADD_ITEM_TO_DAY,
-      payload: { dayId: state.singleDay.id, newItem },
+      payload: { dayId: dateId, newItem },
     });
   };
 
