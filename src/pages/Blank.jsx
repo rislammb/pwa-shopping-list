@@ -1,7 +1,8 @@
-import { Box, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+import { Box, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 import PageTitle from '../components/PageTitle';
 
@@ -18,19 +19,13 @@ const Blank = () => {
     },
     link: {
       textDecoration: 'none',
-      color:
-        theme.palette.mode === 'dark'
-          ? theme.palette.primary.light
-          : theme.palette.primary.dark,
+      color: theme.palette.primary.main,
     },
     fontSize: {
       fontSize: 17,
       mt: 3,
       mb: 1,
-      color:
-        theme.palette.mode === 'dark'
-          ? theme.palette.secondary.light
-          : theme.palette.secondary.dark,
+      color: theme.palette.secondary.main,
     },
   };
 
@@ -39,7 +34,7 @@ const Blank = () => {
       <PageTitle title='Blank Page' />
       <Typography sx={styles.fontSize}>This page not found.</Typography>
       <Typography>
-        Please go back to{' '}
+        Go back to{' '}
         <Link style={styles.link} to='/'>
           Home
         </Link>

@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { Box, Typography } from '@mui/material';
@@ -13,26 +13,26 @@ import StoreContext from '../store/StoreContext';
 
 const DayDetails = () => {
   let { dateId } = useParams();
-  const theme = useTheme();
-
   const {
-    state: { singleDay },
-    setSingleDay,
+    state: { listAsDay },
   } = useContext(StoreContext);
 
-  useEffect(() => {
-    setSingleDay(dateId);
-  }, [dateId]);
+  const theme = useTheme();
 
-  return singleDay ? (
+  const detailsDay = listAsDay?.find((day) => day.id === dateId);
+
+  return detailsDay ? (
     <Box sx={styles.container}>
-      <PageTitle title={dayjs(singleDay?.date).format('DD MMM YYYY')} details />
+      <PageTitle
+        title={dayjs(detailsDay?.date).format('DD MMM YYYY')}
+        details
+      />
       <AddItem day />
       <ShoppingTable details />
       <TotalContainer details />
     </Box>
   ) : (
-    <Box sx={{ margin: 4, display: 'flex', flexDirection: 'column', gap: 2 }}>
+    <Box mt={3}>
       <Typography
         variant='h5'
         color={theme.palette.secondary.main}
@@ -40,17 +40,18 @@ const DayDetails = () => {
       >
         Day not found!
       </Typography>
-      <Link
-        style={{
-          color: theme.palette.primary.main,
-          textAlign: 'center',
-          fontWeight: '600',
-        }}
-        to='/day'
-        aria-label='Go day list'
-      >
-        Back
-      </Link>
+      <Typography mt={1} align='center'>
+        Back to{' '}
+        <Link
+          style={{
+            color: theme.palette.primary.main,
+          }}
+          to='/day'
+          aria-label='Go to saved day'
+        >
+          Saved day
+        </Link>
+      </Typography>
     </Box>
   );
 };

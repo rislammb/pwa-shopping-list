@@ -49,7 +49,7 @@ const ShoppingTable = ({ details }) => {
             <TableRow
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell sx={{ py: 5 }} align='center'>
+              <TableCell sx={{ py: 4 }} align='center'>
                 There are no shopping list item.
               </TableCell>
             </TableRow>

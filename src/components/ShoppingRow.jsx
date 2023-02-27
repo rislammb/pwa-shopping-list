@@ -65,9 +65,9 @@ const ShoppingRow = ({ item, index, details }) => {
         ) : (
           <IconButton
             onClick={() => toggleByed(item.id)}
-            aria-label={item.isByed ? 'Undo' : 'Check'}
+            aria-label={item.isBuyed ? 'Undo' : 'Check'}
           >
-            {item.isByed ? <Undo /> : <Check />}
+            {item.isBuyed ? <Undo /> : <Check />}
           </IconButton>
         )}
       </TableCell>
@@ -81,7 +81,7 @@ const ShoppingRow = ({ item, index, details }) => {
       <TableCell align='right' sx={{ p: 0, width: 57 }}>
         {details ? (
           <Typography align='right'>{item.price}</Typography>
-        ) : item.isByed ? (
+        ) : item.isBuyed ? (
           <ItemPrice item={item} />
         ) : (
           <IconButton onClick={() => deleteItem(item.id)} aria-label='delete'>

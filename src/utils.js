@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 /**
  * Generate a unique id string
  * @returns {string} unique id
@@ -15,3 +17,24 @@ export const generateId = () => {
  * @returns {object} new object
  */
 export const deepClone = (obj) => JSON.parse(JSON.stringify(obj));
+
+/**
+ * Receive a date and return formated date string
+ * @param {object | string} date
+ * @returns {string}
+ */
+export const getDate = (date) => dayjs(date).format('DD MMM YYYY');
+
+/**
+ * Receive a list of day and return total
+ * @param {object[]} dayList
+ * @returns number
+ */
+export const calculateMonthTotal = (dayList) => {
+  let grossTotal = 0;
+  dayList.map((day) => {
+    return day.items.map((item) => (grossTotal += +item.price));
+  });
+
+  return grossTotal.toFixed(2);
+};

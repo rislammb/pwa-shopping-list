@@ -41,7 +41,7 @@ const TotalContainer = ({ day, dayList, details }) => {
   };
 
   const getUnBuyedItems = () =>
-    currentItems?.filter((item) => item.isByed !== true || item.price === '');
+    currentItems?.filter((item) => item.isBuyed !== true || item.price === '');
 
   const saveList = () => {
     if (getUnBuyedItems().length > 0) {

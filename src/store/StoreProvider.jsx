@@ -11,13 +11,12 @@ import {
   ADD_DAY,
   ADD_ITEM,
   ADD_ITEM_TO_DAY,
-  CLEAR_ALL_DAYS,
   CLEAR_CURRENT_ITEMS,
   DELETE_DAY,
   DELETE_ITEM,
   DELETE_ITEM_FROM_DAY,
+  DELETE_MONTH,
   SET_PRICE,
-  SET_SINGLE_DAY,
   TOGGLE_BYED,
   TOGGLE_MODAL,
   TOGGLE_MODE,
@@ -35,7 +34,7 @@ const StoreProvider = () => {
       itemName,
       amount,
       price: '',
-      isByed: false,
+      isBuyed: false,
     };
 
     dispatch({
@@ -68,13 +67,6 @@ const StoreProvider = () => {
 
   const toggleModal = () => dispatch({ type: TOGGLE_MODAL });
 
-  const setSingleDay = (id) => {
-    dispatch({
-      type: SET_SINGLE_DAY,
-      payload: id,
-    });
-  };
-
   const addDay = (date, items) => {
     const newDay = {
       id: generateId(),
@@ -96,7 +88,8 @@ const StoreProvider = () => {
     });
   };
 
-  const clearAllDays = () => dispatch({ type: CLEAR_ALL_DAYS });
+  const deleteMonth = (monthName) =>
+    dispatch({ type: DELETE_MONTH, payload: monthName });
 
   const addItemToDay = (itemName, amount, price) => {
     const newItem = {
@@ -104,7 +97,7 @@ const StoreProvider = () => {
       itemName,
       amount,
       price,
-      isByed: true,
+      isBuyed: true,
     };
 
     dispatch({
@@ -167,10 +160,9 @@ const StoreProvider = () => {
         setItemPrice,
         clearCurrentItems,
         toggleModal,
-        setSingleDay,
         addDay,
         deleteDay,
-        clearAllDays,
+        deleteMonth,
         addItemToDay,
         deleteItemFromDay,
       }}
