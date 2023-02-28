@@ -28,19 +28,29 @@ const StoreProvider = () => {
     JSON.parse(localStorage.getItem('PWA_SHOPPING_LIST_STATE')) ?? initialState;
   const [state, dispatch] = useReducer(reducer, initial);
 
-  const addItem = (itemName, amount) => {
-    const newItem = {
-      id: generateId(),
-      itemName,
-      amount,
-      price: '',
-      isBuyed: false,
-    };
+  const addItem = (data, cb) => {
+    const exist = state.currentItems.find(
+      (item) => item.itemName.toLowerCase() === data.name.toLowerCase()
+    );
 
-    dispatch({
-      type: ADD_ITEM,
-      payload: newItem,
-    });
+    if (exist) {
+      return cb({ name: 'This item already exist!' });
+    } else {
+      const newItem = {
+        id: generateId(),
+        itemName: data.name,
+        amount: data.amount,
+        price: '',
+        isBuyed: false,
+      };
+
+      dispatch({
+        type: ADD_ITEM,
+        payload: newItem,
+      });
+
+      cb();
+    }
   };
 
   const toggleByed = (id) => {
@@ -91,19 +101,31 @@ const StoreProvider = () => {
   const deleteMonth = (monthName) =>
     dispatch({ type: DELETE_MONTH, payload: monthName });
 
-  const addItemToDay = (dateId, data) => {
-    const newItem = {
-      id: generateId(),
-      itemName: data.itemName,
-      amount: data.amount,
-      price: data.price,
-      isBuyed: true,
-    };
+  const addItemToDay = (dateId, data, cb) => {
+    const dayInfo = state.listAsDay.find((day) => day.id === dateId);
 
-    dispatch({
-      type: ADD_ITEM_TO_DAY,
-      payload: { dayId: dateId, newItem },
-    });
+    const exist = dayInfo.items.find(
+      (item) => item.itemName.toLowerCase() === data.name.toLowerCase()
+    );
+
+    if (exist) {
+      return cb({ name: 'This item already exist!' });
+    } else {
+      const newItem = {
+        id: generateId(),
+        itemName: data.name,
+        amount: data.amount,
+        price: data.price,
+        isBuyed: true,
+      };
+
+      dispatch({
+        type: ADD_ITEM_TO_DAY,
+        payload: { dayId: dateId, newItem },
+      });
+
+      cb();
+    }
   };
 
   const deleteItemFromDay = (dayId, itemId) => {

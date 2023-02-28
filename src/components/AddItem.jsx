@@ -1,97 +1,63 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 import Add from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 
+import useForm from '../hooks/useForm';
 import StoreContext from '../store/StoreContext';
+
+const initial = (details) =>
+  details ? { name: '', amount: '', price: '' } : { name: '', amount: '' };
+
+const validate = (values) => {
+  const errors = {};
+
+  Object.keys(values).forEach((key) => {
+    if (key === 'name') {
+      if (values[key].length < 1) {
+        errors[key] = 'Enter a name';
+      }
+    } else if (key === 'amount') {
+      if (values[key].length < 1) {
+        errors[key] = 'Enter a amonut';
+      }
+    } else if (key === 'price') {
+      if (values[key].length < 1) {
+        errors[key] = 'Enter a price';
+      } else if (/[^0-9.]/.test(values[key])) {
+        errors[key] = 'Price must number';
+      }
+    }
+  });
+
+  return { valid: Object.keys(errors).length < 1, errors };
+};
 
 const AddItem = ({ detailsDay }) => {
   const {
-    state: { currentItems },
+    // state: { currentItems },
     addItem,
     addItemToDay,
   } = useContext(StoreContext);
 
-  const [itemName, setItemName] = useState('');
-  const [amount, setAmount] = useState('');
-  const [price, setPrice] = useState('');
-  const [error, setError] = useState({
-    name: '',
-    amount: '',
-    price: '',
-  });
+  const {
+    state,
+    handleChange,
+    handleFocus,
+    handleBlur,
+    handleSubmit,
+    handleAfterSubmit,
+  } = useForm(initial(detailsDay), validate);
 
-  const nameChangeHandler = (e) => {
-    setError((prev) => ({
-      ...prev,
-      name: '',
-    }));
-    setItemName(e.target.value);
-  };
-
-  const amountChangeHandler = (e) => {
-    setError((prev) => ({
-      ...prev,
-      amount: '',
-    }));
-    setAmount(e.target.value);
-  };
-
-  const priceChangeHandler = (e) => {
-    const tempInput = e.target.value.replace(/[^0-9.]/g, '');
-    let i = 0;
-    setPrice(
-      tempInput.trim().replace(/\./g, function () {
-        return ++i >= 2 ? '' : '.';
-      })
-    );
-  };
-
-  const addItemFn = (e) => {
-    e.preventDefault();
-
-    setError({ name: '', amount: '', price: '' });
-    const exist = detailsDay
-      ? detailsDay?.items?.find(
-          (item) => item?.itemName?.toLowerCase() === itemName.toLowerCase()
-        )
-      : currentItems?.find(
-          (item) => item?.itemName?.toLowerCase() === itemName.toLowerCase()
-        );
-
-    if (itemName.trim() === '') {
-      setError((prev) => ({ ...prev, name: 'Enter item name' }));
-    } else if (exist) {
-      setError((prev) => ({ ...prev, name: 'This name already exist!' }));
-    } else if (amount.trim() === '') {
-      setError((prev) => ({ ...prev, amount: 'Enter amount' }));
-    } else if (detailsDay && price.trim() === '') {
-      setError((prev) => ({ ...prev, price: 'Price' }));
+  const addItemFn = (values) => {
+    if (detailsDay) {
+      addItemToDay(detailsDay.id, values, handleAfterSubmit);
     } else {
-      if (detailsDay) {
-        addItemToDay(detailsDay.id, {
-          itemName: itemName.trim(),
-          amount: amount.trim(),
-          price: price.trim(),
-        });
-        setItemName('');
-        setAmount('');
-        setPrice('');
-        setError({ name: '', amount: '', price: '' });
-      } else {
-        addItem(itemName.trim(), amount.trim());
-        setItemName('');
-        setAmount('');
-        setPrice('');
-        setError({ name: '', amount: '', price: '' });
-      }
+      addItem(values, handleAfterSubmit);
     }
   };
-  useEffect(() => {
-    setError({ name: '', amount: '', price: '' });
-  }, []);
 
   return (
     <Box
@@ -101,49 +67,52 @@ const AddItem = ({ detailsDay }) => {
         alignItems: 'flex-start',
         '& .MuiTextField-root': { mr: 1 },
       }}
-      onSubmit={addItemFn}
+      onSubmit={(e) => handleSubmit(e, addItemFn)}
       noValidate
       autoComplete='off'
     >
       <TextField
         sx={{ flex: 3 }}
-        error={error.name ? true : false}
-        helperText={error.name}
-        label='Item Name'
-        value={itemName}
-        autoFocus
+        error={state.name.error ? true : false}
+        helperText={state.name.error}
+        label='Item name'
+        name={state.name.name}
+        value={state.name.value}
         placeholder='Mango'
-        onChange={nameChangeHandler}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         variant='standard'
       />
       <TextField
         sx={{ flex: 2 }}
-        error={error.amount ? true : false}
-        helperText={error.amount}
+        error={state.amount.error ? true : false}
+        helperText={state.amount.error}
         label='Amount'
-        value={amount}
+        name={state.amount.name}
+        value={state.amount.value}
         placeholder='1 kg'
-        onChange={amountChangeHandler}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         variant='standard'
       />
       {detailsDay && (
         <TextField
           sx={{ flex: 1 }}
-          error={error.price ? true : false}
-          helperText={error.price}
+          error={state.price.error ? true : false}
+          helperText={state.price.error}
           label='Price'
-          value={price}
+          name={state.price.name}
+          value={state.price.value}
           placeholder='45'
-          onChange={priceChangeHandler}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           variant='standard'
         />
       )}
-      <IconButton
-        aria-label='Add'
-        type='submit'
-        color='primary'
-        onClick={addItemFn}
-      >
+      <IconButton aria-label='Add' type='submit' color='primary'>
         <Add fontSize='large' />
       </IconButton>
     </Box>

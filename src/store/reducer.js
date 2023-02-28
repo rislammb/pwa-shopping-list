@@ -36,7 +36,7 @@ export const reducer = (state, action) => {
       return oldState;
 
     case ADD_ITEM:
-      oldState.currentItems = [action.payload, ...state.currentItems];
+      oldState.currentItems.push(action.payload);
       return oldState;
 
     case TOGGLE_BYED:
