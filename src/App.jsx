@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import DrawerList from './components/DrawerList';
@@ -14,19 +14,24 @@ import { useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 
 import './App.css';
-import StoreContext from './store/StoreContext';
 
 const drawerWidth = 240;
 
 const App = (props) => {
   const theme = useTheme();
-  const { loading } = useContext(StoreContext);
+  const [loading, setLoading] = useState(true);
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 100);
+  }, []);
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
@@ -37,7 +42,7 @@ const App = (props) => {
       px: 1,
       display: 'flex',
       flexDirection: 'column',
-      maxWidth: 470,
+      maxWidth: 540,
       mx: 'auto',
       overflow: 'hidden',
       minHeight: '100vh',

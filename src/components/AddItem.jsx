@@ -26,7 +26,7 @@ const validate = (values) => {
     } else if (key === 'price') {
       if (values[key].length < 1) {
         errors[key] = 'Enter a price';
-      } else if (/[^0-9.]/.test(values[key])) {
+      } else if (!/^\d+(\.\d{1,2})?$/.test(values[key])) {
         errors[key] = 'Price must number';
       }
     }

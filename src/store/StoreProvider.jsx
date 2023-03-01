@@ -1,5 +1,5 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import React, { useEffect, useMemo, useReducer, useState } from 'react';
+import React, { useEffect, useMemo, useReducer } from 'react';
 
 import App from '../App';
 import StoreContext from './StoreContext';
@@ -23,7 +23,6 @@ import {
 } from './types';
 
 const StoreProvider = () => {
-  const [loading, setLoading] = useState(true);
   const initial =
     JSON.parse(localStorage.getItem('PWA_SHOPPING_LIST_STATE')) ?? initialState;
   const [state, dispatch] = useReducer(reducer, initial);
@@ -139,10 +138,6 @@ const StoreProvider = () => {
     localStorage.setItem('PWA_SHOPPING_LIST_STATE', JSON.stringify(state));
   }, [state]);
 
-  useEffect(() => {
-    setLoading(false);
-  }, []);
-
   const toggleColorMode = () => dispatch({ type: TOGGLE_MODE });
 
   const theme = useMemo(
@@ -174,7 +169,6 @@ const StoreProvider = () => {
     <StoreContext.Provider
       value={{
         toggleColorMode,
-        loading,
         state,
         addItem,
         deleteItem,
