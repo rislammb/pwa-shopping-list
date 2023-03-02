@@ -11,8 +11,9 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 import DayRow from '../components/DayRow';
+import ProgressBar from '../components/ProgressBar';
 import StoreContext from '../store/StoreContext';
-import { calculateMonthTotal } from '../utils';
+import { getSortedlistAsMonth, totalFromDays } from '../utils';
 
 const SavedDays = () => {
   const theme = useTheme();
@@ -21,6 +22,7 @@ const SavedDays = () => {
     deleteMonth,
   } = useContext(StoreContext);
 
+  const [loading, setLoading] = useState(true);
   const [dayListAsMonth, setDayListAsMonth] = useState([]);
   const [expanded, setExpanded] = useState(false);
 
@@ -37,32 +39,11 @@ const SavedDays = () => {
   };
 
   useEffect(() => {
-    const newList = listAsDay.sort(function (a, b) {
-      const keyA = a.date;
-      const keyB = b.date;
-
-      if (keyA > keyB) return -1;
-      if (keyA < keyB) return 1;
-      return 0;
-    });
-
-    const listAsMonth = newList.reduce((acc, cur) => {
-      const index = acc.findIndex((mon) => mon.name === cur.month);
-
-      if (index > -1) {
-        acc[index].days.push(cur);
-      } else {
-        acc.push({
-          name: cur.month,
-          days: [cur],
-        });
-      }
-
-      return acc;
-    }, []);
+    const listAsMonth = getSortedlistAsMonth(listAsDay);
 
     setDayListAsMonth(listAsMonth);
     setExpanded(listAsMonth[0]?.name);
+    setLoading(false);
   }, [listAsDay]);
 
   const styles = {
@@ -80,7 +61,9 @@ const SavedDays = () => {
 
   return (
     <Box sx={styles.root}>
-      {dayListAsMonth.length > 0 ? (
+      {loading ? (
+        <ProgressBar />
+      ) : dayListAsMonth.length > 0 ? (
         dayListAsMonth.map((month) => (
           <Accordion
             expanded={expanded === month.name}
@@ -103,7 +86,6 @@ const SavedDays = () => {
                 <DeleteIcon sx={styles.delete} fontSize='small' />
               </IconButton>
               <AccordionSummary
-                // expandIcon={<ExpandMoreIcon />}
                 aria-controls={`${month.name}-content`}
                 id={`${month.name}header`}
                 sx={{
@@ -133,9 +115,7 @@ const SavedDays = () => {
                 >
                   {month.name}
                 </Typography>
-                <Typography>
-                  Total: {calculateMonthTotal(month.days)}
-                </Typography>
+                <Typography>Total: {totalFromDays(month.days)}</Typography>
               </AccordionSummary>
             </div>
             <AccordionDetails

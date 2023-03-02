@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import DrawerList from './components/DrawerList';
 import Main from './components/Main';
 import ModalComp from './components/ModalComp';
 import Navbar from './components/Navbar';
-import ProgressBar from './components/ProgressBar';
 
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,19 +18,12 @@ const drawerWidth = 240;
 
 const App = (props) => {
   const theme = useTheme();
-  const [loading, setLoading] = useState(true);
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 100);
-  }, []);
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
@@ -59,7 +51,7 @@ const App = (props) => {
         />
         <Box component='main' sx={styles.main}>
           <Toolbar />
-          {loading ? <ProgressBar /> : <Main />}
+          <Main />
         </Box>
         <Box
           component='nav'

@@ -8,17 +8,11 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 import StoreContext from '../store/StoreContext';
-import { getDate } from '../utils';
+import { getDate, totalFromDays } from '../utils';
 
 const DayRow = ({ day }) => {
   const { setSingleDay, deleteDay } = useContext(StoreContext);
   const theme = useTheme();
-
-  const calculateTotal = () => {
-    let total = 0;
-    day.items.map((item) => (total += +item.price));
-    return total.toFixed(1);
-  };
 
   const deleteHandler = () => {
     if (
@@ -73,7 +67,7 @@ const DayRow = ({ day }) => {
         <Box sx={styles.total}>
           <Typography sx={{ fontSize: 'inherit' }}>Total: </Typography>
           <Typography sx={{ fontSize: 'inherit' }}>
-            {calculateTotal()}
+            {totalFromDays([day])}
           </Typography>
         </Box>
       </Link>

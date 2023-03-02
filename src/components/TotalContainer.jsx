@@ -7,38 +7,20 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { useTheme } from '@mui/material/styles';
 
+import { totalFromDays } from '../utils';
 import TotalPrice from './TotalPrice';
 
 import StoreContext from '../store/StoreContext';
 
-const TotalContainer = ({ day, dayList, detailsDay }) => {
+const TotalContainer = ({ detailsDay }) => {
   const navigate = useNavigate();
   const theme = useTheme();
 
   const {
-    state: { currentItems, listAsDay },
+    state: { currentItems },
     toggleModal,
     clearCurrentItems,
-    clearAllDays,
   } = useContext(StoreContext);
-
-  const calculateTotal = () => {
-    if (day) {
-      let grossTotal = 0;
-      dayList.map((day) => {
-        return day.items.map((item) => (grossTotal += +item.price));
-      });
-      return grossTotal.toFixed(2);
-    } else {
-      const newItems = detailsDay
-        ? detailsDay.items?.filter((item) => +item.price > 0)
-        : currentItems?.filter((item) => +item.price > 0);
-
-      let totalPrice = 0;
-      newItems?.map((item) => (totalPrice += +item.price));
-      return totalPrice.toFixed(2);
-    }
-  };
 
   const getUnBuyedItems = () =>
     currentItems?.filter((item) => item.isBuyed !== true || item.price === '');
@@ -54,16 +36,6 @@ const TotalContainer = ({ day, dayList, detailsDay }) => {
   const clearCurrentItemsFn = () => {
     if (window.confirm('Are you sure you want to delete all items?')) {
       clearCurrentItems();
-    }
-  };
-
-  const clearAllHandler = () => {
-    if (window.confirm('Are you sure you want to delete all days?')) {
-      if (
-        window.confirm('If you delete all days your data will never back!!!')
-      ) {
-        clearAllDays();
-      }
     }
   };
 
@@ -84,24 +56,14 @@ const TotalContainer = ({ day, dayList, detailsDay }) => {
 
   return (
     <Box position='fixed' sx={styles.root}>
-      {day ? (
-        <TotalPrice day={day} total={calculateTotal()}>
-          <Button
-            onClick={clearAllHandler}
-            disabled={listAsDay.length < 1 ? true : false}
-            sx={styles.delete}
-          >
-            Clear all days
-          </Button>
-        </TotalPrice>
-      ) : detailsDay ? (
-        <TotalPrice detailsDay={detailsDay} total={calculateTotal()}>
+      {detailsDay ? (
+        <TotalPrice detailsDay={detailsDay} total={totalFromDays([detailsDay])}>
           <IconButton onClick={() => navigate('/day')}>
             <ArrowBackRounded color='primary' />
           </IconButton>
         </TotalPrice>
       ) : (
-        <TotalPrice total={calculateTotal()}>
+        <TotalPrice total={totalFromDays([{ items: currentItems }])}>
           <Button
             sx={styles.delete}
             disabled={currentItems?.length < 1 ? true : false}
