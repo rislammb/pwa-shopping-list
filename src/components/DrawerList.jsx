@@ -3,7 +3,7 @@ import Toolbar from '@mui/material/Toolbar';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { Home, Mail, Message } from '@mui/icons-material';
+import { Home, Info, Mail, Message } from '@mui/icons-material';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -49,6 +49,18 @@ const DrawerList = ({ toggleDrawer }) => {
               <Message />
             </ListItemIcon>
             <ListItemText primary='Saved Day' />
+          </ListItem>
+        </NavLink>
+        <NavLink
+          aria-label='About this App'
+          to='/about'
+          style={({ isActive }) => (isActive ? styles.activeLink : styles.link)}
+        >
+          <ListItem onClick={() => toggleDrawer && toggleDrawer()}>
+            <ListItemIcon>
+              <Info />
+            </ListItemIcon>
+            <ListItemText primary='About this App' />
           </ListItem>
         </NavLink>
       </List>

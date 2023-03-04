@@ -14,7 +14,7 @@ import Toolbar from '@mui/material/Toolbar';
 
 import './App.css';
 
-const drawerWidth = 240;
+export const drawerWidth = 240;
 
 const App = (props) => {
   const theme = useTheme();

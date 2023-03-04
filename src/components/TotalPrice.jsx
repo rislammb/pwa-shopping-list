@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 const TotalPrice = (props) => (
   <Box
     sx={{
-      maxWidth: 470,
+      maxWidth: 540,
       mx: 'auto',
       px: 1,
     }}

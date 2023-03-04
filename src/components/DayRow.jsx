@@ -24,6 +24,7 @@ const DayRow = ({ day }) => {
 
   const styles = {
     root: {
+      py: 0.5,
       display: 'flex',
       alignItems: 'center',
       gap: '8px',

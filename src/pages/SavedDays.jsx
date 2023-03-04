@@ -74,7 +74,6 @@ const SavedDays = () => {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'space-between',
                 padding: '0px 16px',
               }}
             >
@@ -92,8 +91,6 @@ const SavedDays = () => {
                   flex: 1,
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'space-between',
-
                   '&.Mui-expanded': {
                     minHeight: '30px',
                   },
@@ -106,7 +103,6 @@ const SavedDays = () => {
               >
                 <Typography
                   sx={{
-                    textAlign: 'center',
                     flex: 1,
                     color: theme.palette.primary.main,
                     fontSize: '1.2rem',

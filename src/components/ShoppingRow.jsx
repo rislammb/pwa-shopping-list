@@ -48,7 +48,7 @@ const ShoppingRow = ({ item, index, detailsDay }) => {
     <TableRow
       sx={{
         display: 'flex',
-        alignItems: 'cenetr',
+        pt: 0.5,
         '&:last-child td, &:last-child th': { border: 0 },
       }}
     >
@@ -62,7 +62,11 @@ const ShoppingRow = ({ item, index, detailsDay }) => {
             onClick={() => toggleByed(item.id)}
             aria-label={item.isBuyed ? 'Undo' : 'Check'}
           >
-            {item.isBuyed ? <Undo /> : <Check />}
+            {item.isBuyed ? (
+              <Undo fontSize='small' />
+            ) : (
+              <Check fontSize='small' />
+            )}
           </IconButton>
         )}
       </TableCell>
@@ -73,7 +77,7 @@ const ShoppingRow = ({ item, index, detailsDay }) => {
         {item.itemName}
       </TableCell>
       <TableCell sx={{ flex: 3, px: 1 }}>{item.amount}</TableCell>
-      <TableCell align='right' sx={{ p: 0, width: 57 }}>
+      <TableCell align='right' sx={{ px: 1, width: 73 }}>
         {detailsDay ? (
           <Typography align='right'>{item.price}</Typography>
         ) : item.isBuyed ? (

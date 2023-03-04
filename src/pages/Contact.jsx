@@ -1,6 +1,5 @@
 import { Box, Link, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import React from 'react';
 import PageTitle from '../components/PageTitle';
 
 const Contact = () => {

@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { useTheme } from '@mui/material/styles';
 
+import { drawerWidth } from '../App';
 import { totalFromDays } from '../utils';
 import TotalPrice from './TotalPrice';
 
@@ -39,7 +40,6 @@ const TotalContainer = ({ detailsDay }) => {
     }
   };
 
-  const drawerWidth = 240;
   const styles = {
     root: {
       bottom: 0,
@@ -58,7 +58,7 @@ const TotalContainer = ({ detailsDay }) => {
     <Box position='fixed' sx={styles.root}>
       {detailsDay ? (
         <TotalPrice detailsDay={detailsDay} total={totalFromDays([detailsDay])}>
-          <IconButton onClick={() => navigate('/day')}>
+          <IconButton size='small' onClick={() => navigate('/day')}>
             <ArrowBackRounded color='primary' />
           </IconButton>
         </TotalPrice>

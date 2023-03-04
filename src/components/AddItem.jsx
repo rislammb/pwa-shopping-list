@@ -36,11 +36,7 @@ const validate = (values) => {
 };
 
 const AddItem = ({ detailsDay }) => {
-  const {
-    // state: { currentItems },
-    addItem,
-    addItemToDay,
-  } = useContext(StoreContext);
+  const { addItem, addItemToDay } = useContext(StoreContext);
 
   const {
     state,
@@ -64,15 +60,19 @@ const AddItem = ({ detailsDay }) => {
       component='form'
       sx={{
         display: 'flex',
+        flexWrap: 'wrap',
         alignItems: 'flex-start',
-        '& .MuiTextField-root': { mr: 1 },
+        justifyContent: 'center',
+        gap: 1,
+
+        // '& .MuiTextField-root': { mr: 1 },
       }}
       onSubmit={(e) => handleSubmit(e, addItemFn)}
       noValidate
       autoComplete='off'
     >
       <TextField
-        sx={{ flex: 3 }}
+        sx={{ flex: '2 150px' }}
         error={state.name.error ? true : false}
         helperText={state.name.error}
         label='Item name'
@@ -85,7 +85,7 @@ const AddItem = ({ detailsDay }) => {
         variant='standard'
       />
       <TextField
-        sx={{ flex: 2 }}
+        sx={{ flex: '1 120px' }}
         error={state.amount.error ? true : false}
         helperText={state.amount.error}
         label='Amount'
@@ -99,7 +99,7 @@ const AddItem = ({ detailsDay }) => {
       />
       {detailsDay && (
         <TextField
-          sx={{ flex: 1 }}
+          sx={{ flexBasis: '100px' }}
           error={state.price.error ? true : false}
           helperText={state.price.error}
           label='Price'
@@ -112,7 +112,7 @@ const AddItem = ({ detailsDay }) => {
           variant='standard'
         />
       )}
-      <IconButton aria-label='Add' type='submit' color='primary'>
+      <IconButton size='small' aria-label='Add' type='submit' color='primary'>
         <Add fontSize='large' />
       </IconButton>
     </Box>
