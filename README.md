@@ -6,4 +6,4 @@
 
 - This app can be browsed in any browser as a website and installed as a desktop app on a computer and an Android and iOS app on mobile. The app can be used online as well as offline after the 1st time browsing.
 
-- All Data is stored in local storage so there is no need for registration or login.
+- All data is stored in local storage so there is no fear of data leakage and no need to register or login.
