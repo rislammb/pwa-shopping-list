@@ -19,7 +19,7 @@ const Contact = () => {
       <List>
         <ListItem>
           <ListItemText
-            primary={`This is an excellent web app for tracking shopping or expenses. The
+            primary={`This is an excellent Progressive Web App (PWA) for tracking shopping or expenses. The
           user of this app can save the list of necessary shopping or expenses
           of his daily life here and track which shopping or expenses have been
           completed and which are left.`}
@@ -44,7 +44,7 @@ const Contact = () => {
         <Divider variant='middle' />
         <ListItem>
           <ListItemText
-            primary={`All Data is stored in local storage so there is no need for registration or login.`}
+            primary={`All data is stored in local storage so there is no fear of data leakage and no need to register or login.`}
           />
         </ListItem>
       </List>
