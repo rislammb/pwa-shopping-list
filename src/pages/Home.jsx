@@ -15,7 +15,7 @@ const Home = () => {
           flexDirection: 'column',
         }}
       >
-        <PageTitle title='Shopping List' />
+        <PageTitle title='Shopping or Expense List' />
         <AddItem />
         <ShoppingTable />
       </Box>
