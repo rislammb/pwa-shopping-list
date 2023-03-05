@@ -28,7 +28,7 @@ const Contact = () => {
         <Divider variant='middle' />
         <ListItem>
           <ListItemText
-            primary={`After shopping or spending, user can save day-wise expenses and view
+            primary={`After shopping or spending, users can save day-wise expenses and view
             those days separately by month. Through this, the user can save the
             calculation of his every money spent.`}
           />
@@ -44,7 +44,7 @@ const Contact = () => {
         <Divider variant='middle' />
         <ListItem>
           <ListItemText
-            primary={`All data is stored in local storage so there is no fear of data leakage and no need to register or login.`}
+            primary={`All data is stored in local storage so there is no fear of data leakage and no need to register or log in.`}
           />
         </ListItem>
       </List>
