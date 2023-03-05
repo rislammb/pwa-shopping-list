@@ -28,7 +28,7 @@ const Contact = () => {
         <Divider variant='middle' />
         <ListItem>
           <ListItemText
-            primary={`After shopping or spending, you can save day-wise expenses and view
+            primary={`After shopping or spending, user can save day-wise expenses and view
             those days separately by month. Through this, the user can save the
             calculation of his every money spent.`}
           />
