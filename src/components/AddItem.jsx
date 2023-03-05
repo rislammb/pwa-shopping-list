@@ -54,7 +54,7 @@ const AddItem = ({ detailsDay }) => {
       value: state.name.value,
       error: state.name.error,
       placeholder: 'Mango',
-      style: { flex: '2 150px' },
+      style: { flex: '2 120px' },
     },
     {
       label: 'Amount',
@@ -62,7 +62,7 @@ const AddItem = ({ detailsDay }) => {
       value: state.amount.value,
       error: state.amount.error,
       placeholder: '1 kg',
-      style: { flex: '1 120px' },
+      style: { flex: '1 80px' },
     },
   ];
 
