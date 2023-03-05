@@ -47,6 +47,35 @@ const AddItem = ({ detailsDay }) => {
     handleAfterSubmit,
   } = useForm(initial(detailsDay), validate);
 
+  const inputsForRender = [
+    {
+      label: 'Item name',
+      name: state.name.name,
+      value: state.name.value,
+      error: state.name.error,
+      placeholder: 'Mango',
+      style: { flex: '2 150px' },
+    },
+    {
+      label: 'Amount',
+      name: state.amount.name,
+      value: state.amount.value,
+      error: state.amount.error,
+      placeholder: '1 kg',
+      style: { flex: '1 120px' },
+    },
+  ];
+
+  detailsDay &&
+    inputsForRender.push({
+      label: 'Price',
+      name: state.price.name,
+      value: state.price.value,
+      error: state.price.error,
+      placeholder: '45',
+      style: { flexBasis: '100px' },
+    });
+
   const addItemFn = (values) => {
     if (detailsDay) {
       addItemToDay(detailsDay.id, values, handleAfterSubmit);
@@ -64,54 +93,28 @@ const AddItem = ({ detailsDay }) => {
         alignItems: 'flex-start',
         justifyContent: 'center',
         gap: 1,
-
-        // '& .MuiTextField-root': { mr: 1 },
       }}
       onSubmit={(e) => handleSubmit(e, addItemFn)}
       noValidate
       autoComplete='off'
     >
-      <TextField
-        sx={{ flex: '2 150px' }}
-        error={state.name.error ? true : false}
-        helperText={state.name.error}
-        label='Item name'
-        name={state.name.name}
-        value={state.name.value}
-        placeholder='Mango'
-        onChange={handleChange}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        variant='standard'
-      />
-      <TextField
-        sx={{ flex: '1 120px' }}
-        error={state.amount.error ? true : false}
-        helperText={state.amount.error}
-        label='Amount'
-        name={state.amount.name}
-        value={state.amount.value}
-        placeholder='1 kg'
-        onChange={handleChange}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        variant='standard'
-      />
-      {detailsDay && (
+      {inputsForRender.map((input) => (
         <TextField
-          sx={{ flexBasis: '100px' }}
-          error={state.price.error ? true : false}
-          helperText={state.price.error}
-          label='Price'
-          name={state.price.name}
-          value={state.price.value}
-          placeholder='45'
+          key={input.name}
+          label={input.label}
+          name={input.name}
+          value={input.value}
+          error={input.error ? true : false}
+          helperText={input.error}
+          placeholder={input.placeholder}
+          sx={input.style}
           onChange={handleChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
           variant='standard'
         />
-      )}
+      ))}
+
       <IconButton size='small' aria-label='Add' type='submit' color='primary'>
         <Add fontSize='large' />
       </IconButton>
